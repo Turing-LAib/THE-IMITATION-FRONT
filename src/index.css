@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("/font/JetBrainsMono-Regular.ttf") format("truetype");
+    font-weight: normal;
+    /* Regular weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("/font/JetBrainsMono-Bold.ttf") format("truetype");
+    font-weight: bold;
+    /* Bold weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("/font/JetBrainsMono-Light.ttf") format("truetype");
+    font-weight: 300;
+    /* Medium weight */
+    font-style: normal;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+}
