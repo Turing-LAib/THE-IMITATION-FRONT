@@ -27,3 +27,18 @@
 body {
     font-family: 'JetBrains Mono', monospace;
 }
+
+/* 隐藏全局滚动条 - webkit浏览器 */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* 隐藏全局滚动条 - Firefox */
+* {
+    scrollbar-width: none;
+}
+
+/* 隐藏全局滚动条 - IE和Edge */
+* {
+    -ms-overflow-style: none;
+}
