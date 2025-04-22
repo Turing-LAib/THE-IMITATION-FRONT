@@ -1,9 +1,5 @@
 import { truncateAddress } from "@/utils/format";
-import {
-  DynamicConnectButton,
-  DynamicUserProfile,
-  useDynamicContext,
-} from "@dynamic-labs/sdk-react-core";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { Link } from "react-router-dom";
 export default function Header() {
   const { setShowAuthFlow, primaryWallet, handleLogOut } = useDynamicContext();
