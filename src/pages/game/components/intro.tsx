@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Intro() {
   const TextItem = ({ title, content }: { title: string; content: string }) => {
     return (
