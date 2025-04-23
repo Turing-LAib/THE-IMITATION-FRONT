@@ -6,7 +6,7 @@ import HomeTextAnimation from "@/components/home-text-animation";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 export default function Home() {
-  const [isOver, setIsOver] = useState(false);
+  const [isOver, setIsOver] = useState(true);
   const navigate = useNavigate();
   const gameList = [
     {

@@ -2,6 +2,8 @@ import Layout from "@/components/layout";
 import Intro from "./components/intro";
 import LiveVote from "./components/live-vote";
 import SystemProcess from "./components/system-process";
+import ProgressBar from "./components/progress-bar";
+import ChatMessage from "./components/chat-message";
 
 export default function GamePage() {
   return (
@@ -13,6 +15,8 @@ export default function GamePage() {
         </div>
         <div className="col-span-3">
           <SystemProcess />
+          <ProgressBar />
+          <ChatMessage />
         </div>
       </div>
     </Layout>
