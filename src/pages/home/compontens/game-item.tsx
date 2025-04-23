@@ -1,13 +1,22 @@
 import { cn } from "@/utils/cn";
 import { numberToRoman } from "@/utils/format";
-
-export default function GameItem({ item }: any) {
+type gameItemType = {
+  item: {
+    id: string;
+    title: string;
+    img: string;
+    isActive: boolean;
+  };
+  onClick: () => void;
+};
+export default function GameItem({ item, onClick }: gameItemType) {
   return (
     <div
       className={cn(
         "group",
         item.isActive ? "cursor-pointer" : "cursor-not-allowed opacity-70"
       )}
+      onClick={onClick}
     >
       <div>GAME-{numberToRoman(Number(item.id))}</div>
       <div className="w-full overflow-hidden relative ">

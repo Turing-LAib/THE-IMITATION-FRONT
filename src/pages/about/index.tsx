@@ -1,4 +1,4 @@
-import Laryout from "@/components/laryout";
+import Laryout from "@/components/layout";
 
 export default function AboutPage() {
   return (

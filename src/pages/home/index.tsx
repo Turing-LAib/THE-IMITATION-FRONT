@@ -1,10 +1,13 @@
-import Laryout from "@/components/laryout";
+import Laryout from "@/components/layout";
 import LoadingVideo from "@/components/loading-video";
 import { useState } from "react";
 import GameItem from "./compontens/game-item";
-
+import HomeTextAnimation from "@/components/home-text-animation";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
 export default function Home() {
-  const [isOver, setIsOver] = useState(true);
+  const [isOver, setIsOver] = useState(false);
+  const navigate = useNavigate();
   const gameList = [
     {
       id: "1",
@@ -33,15 +36,28 @@ export default function Home() {
                 alt=""
               />
               <div className="text-center absolute top-1/2 -translate-y-1/2">
-                <div className="text-[#ACACAC] text-2xl">
-                  THE IMITATION GAME
-                </div>
-                <div className="text-5xl">TURING LAB</div>
+                <HomeTextAnimation
+                  className="text-[#ACACAC] text-2xl"
+                  text="THE IMITATION GAME"
+                />
+                <HomeTextAnimation className="text-5xl" text="TURING LAB" />
               </div>
             </div>
             <div className="mt-20 grid grid-cols-4 gap-10">
               {gameList.map((item) => {
-                return <GameItem key={item.id} item={item} />;
+                return (
+                  <GameItem
+                    key={item.id}
+                    item={item}
+                    onClick={() => {
+                      if (item.isActive) {
+                        navigate(`/game/${item.id}`);
+                      } else {
+                        toast.warning("Coming Soon");
+                      }
+                    }}
+                  />
+                );
               })}
             </div>
           </div>
