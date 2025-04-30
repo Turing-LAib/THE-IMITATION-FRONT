@@ -45,7 +45,7 @@ export default function Intro({ setNowShowType }: introProps) {
   ];
   return (
     <>
-      <div className="bg-[#101010] rounded-3xl p-7">
+      <div className="bg-[#101010] rounded-3xl p-3">
         <div className="bg-[#1A1A1A] rounded-2xl px-4 py-1">
           <p className="font-bold text-3xl">Acting Sentient</p>
           <p className="text-[#ACACAC]">GAME - I</p>

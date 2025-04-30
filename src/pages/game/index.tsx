@@ -14,12 +14,12 @@ export default function GamePage() {
   );
   return (
     <Layout>
-      <div className="text-white grid grid-cols-12 gap-8">
-        <div className="col-span-4 h-[calc(100vh-170px)] overflow-auto hide-scrollbar">
+      <div className="text-white grid grid-cols-4 gap-8">
+        <div className="col-span-1 h-[calc(100vh-120px)] overflow-auto hide-scrollbar">
           <Intro setNowShowType={setNowShowType} />
           <LiveVote />
         </div>
-        <div className="col-span-8">
+        <div className="col-span-3">
           {nowShowType === "home" && (
             <>
               <SystemProcess />

@@ -1,6 +1,6 @@
 export default function Rules() {
   return (
-    <div className="bg-[#101010] rounded-3xl p-7">
+    <div className="bg-[#101010] rounded-3xl p-3">
       <div className="bg-[#1A1A1A] rounded-2xl p-4">
         <p className="font-bold text-3xl">RULES</p>
       </div>

@@ -25,7 +25,7 @@ export default function ChatMessage() {
   ];
   const [round] = useState(1);
   return (
-    <div className="mt-7 space-y-6 h-[calc(100vh-430px)] overflow-y-auto custom-scrollbar">
+    <div className="mt-7 space-y-6 h-[calc(100vh-380px)] overflow-y-auto custom-scrollbar">
       {aiList.map((item) => {
         return (
           <div className="flex gap-x-4" key={item.ai}>
