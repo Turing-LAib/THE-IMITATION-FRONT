@@ -99,7 +99,9 @@ export default function LiveVote() {
         disabled={!Boolean(voteId)}
         className={cn(
           "mt-10 w-full border-[1px] border-[#ACACAC] rounded-lg text-lg text-center py-3 hover:opacity-70 transition-all",
-          Boolean(voteId) ? "cursor-pointer" : "cursor-not-allowed"
+          Boolean(voteId)
+            ? "cursor-pointer bg-[#8BE421] text-black"
+            : "cursor-not-allowed bg-[#0C0C0C] text-white"
         )}
         onClick={handleVote}
       >

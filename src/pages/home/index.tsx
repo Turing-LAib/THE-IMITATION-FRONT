@@ -6,7 +6,7 @@ import HomeTextAnimation from "@/components/home-text-animation";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 export default function Home() {
-  const [isOver, setIsOver] = useState(true);
+  const [isOver, setIsOver] = useState(false);
   const navigate = useNavigate();
   const gameList = [
     {
@@ -30,11 +30,18 @@ export default function Home() {
         <Laryout>
           <div className="text-white pt-20">
             <div className="flex flex-col items-center font-light relative">
-              <img
-                className="w-[270px] h-[270px]"
-                src="/img/homeLogo.png"
-                alt=""
-              />
+              <div className="relative w-[270px] h-[270px] group cursor-pointer">
+                <img
+                  className="w-full h-full absolute top-0 left-0 group-hover:opacity-0 transition-opacity duration-500"
+                  src="/img/homeLogo.png"
+                  alt=""
+                />
+                <img
+                  className="w-full h-full absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  src="/img/home-variant.png"
+                  alt=""
+                />
+              </div>
               <div className="text-center absolute top-1/2 -translate-y-1/2">
                 <HomeTextAnimation
                   className="text-[#ACACAC] text-2xl"

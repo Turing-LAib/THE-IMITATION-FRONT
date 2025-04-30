@@ -25,7 +25,7 @@ export default function ChatMessage() {
   ];
   const [round] = useState(1);
   return (
-    <div className="mt-7 space-y-6 max-h-[800px] overflow-y-auto">
+    <div className="mt-7 space-y-6 h-[calc(100vh-430px)] overflow-y-auto custom-scrollbar">
       {aiList.map((item) => {
         return (
           <div className="flex gap-x-4" key={item.ai}>
@@ -33,7 +33,7 @@ export default function ChatMessage() {
               <img className="w-[120px] h-[120px]" src={item.icon} alt="" />
               <div className="mt-1 text-[#ACACAC] text-xs">{item.ai}</div>
             </div>
-            <div className="rounded-lg bg-[#121212] p-4 flex-1 max-h-[360px] overflow-y-auto">
+            <div className="rounded-lg bg-[#121212] p-4 flex-1">
               <p className=" text-sm text-[#acacac]">
                 {`<TAG #GAME_1 #ROUND_${round} />`}
               </p>
