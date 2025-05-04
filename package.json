@@ -12,6 +12,9 @@
   "dependencies": {
     "@dynamic-labs/sdk-react-core": "^4.12.4",
     "@dynamic-labs/solana": "^4.12.4",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.0.2",
     "@tailwindcss/vite": "^4.1.4",
     "clsx": "^2.1.1",
     "react": "^19.0.0",

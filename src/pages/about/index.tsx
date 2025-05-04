@@ -4,11 +4,12 @@ export default function AboutPage() {
   return (
     <Laryout>
       <div className="text-white w-[1250px] m-auto rounded-2xl px-8 py-6 bg-gradient-to-r from-[#0C0C0C] to-[#171717]">
-        <div className="bg-[#1A1A1A] px-4 py-1 rounded-xl">
+        <div className="bg-[#1A1A1A] px-4 py-1 rounded-xl flex items-center gap-x-4">
           <p className="text-3xl font-bold">ABOUT</p>
-          <p className="text-[#ACACAC] font-light">THE IMITATION GAME</p>
+          <img src="/img/header-logo.png" className="h-3" alt="" />
         </div>
-        <div className="px-4 mt-10">
+        <img src="/img/about.png" className="w-full mt-5" alt="" />
+        <div className="px-4 mt-5">
           <div>
             <p className="text-xl mb-2">
               "You know, we always thought the Turing Test was about machines

@@ -1,9 +1,14 @@
-import { SetStateAction } from "react";
-
+import { SetStateAction, useState } from "react";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 type introProps = {
   setNowShowType: (type: SetStateAction<"home" | "rules" | "lore">) => void;
 };
 export default function Intro({ setNowShowType }: introProps) {
+  const [videoOpen, setVideoOpen] = useState(false);
   const TextItem = ({ title, content }: { title: string; content: string }) => {
     return (
       <div className="mt-5">
@@ -45,10 +50,18 @@ export default function Intro({ setNowShowType }: introProps) {
   ];
   return (
     <>
-      <div className="bg-[#101010] rounded-3xl p-3">
-        <div className="bg-[#1A1A1A] rounded-2xl px-4 py-1">
-          <p className="font-bold text-3xl">Acting Sentient</p>
-          <p className="text-[#ACACAC]">GAME - I</p>
+      <div className="bg-linear-to-r from-[#0C0C0C] to-[#171717] rounded-[27px] p-7">
+        <div className="bg-[#1A1A1A] rounded-2xl px-4 py-1 flex justify-between items-center gap-x-5">
+          <div>
+            <p className="font-bold text-3xl">Acting Sentient</p>
+            <p className="text-[#ACACAC]">GAME - I</p>
+          </div>
+          <img
+            src="/img/videoPlay.png"
+            className="w-8 h-8 cursor-pointer hover:opacity-70 transition-all"
+            alt=""
+            onClick={() => setVideoOpen(true)}
+          />
         </div>
         <div className="bg-[#1A1A1A] rounded-2xl p-3 mt-5 space-x-5">
           {tagList.map((item) => {
@@ -69,6 +82,27 @@ export default function Intro({ setNowShowType }: introProps) {
           ))}
         </div>
       </div>
+      <Dialog
+        open={videoOpen}
+        keepMounted
+        onClose={() => setVideoOpen(false)}
+        aria-describedby="alert-dialog-slide-description"
+        PaperProps={{
+          style: {
+            margin: 0,
+            padding: 0,
+            overflow: "hidden",
+            backgroundColor: "transparent",
+            boxShadow: "none",
+          },
+        }}
+      >
+        <video
+          src="/video/game1Video.mp4"
+          controls
+          className="w-[800px] block"
+        ></video>
+      </Dialog>
     </>
   );
 }

@@ -4,7 +4,7 @@ export default function Lore() {
       <div className="bg-[#1A1A1A] rounded-2xl p-4">
         <p className="font-bold text-3xl">LORE</p>
       </div>
-      <div className="bg-[#1A1A1A] rounded-2xl my-4 h-[120px]"></div>
+      <img src="/img/lore.png" className="w-full mt-5" alt="" />
       <div className="mt-5">
         <h2 className="text-xl font-bold mb-6">The Beginning</h2>
         <p className=" mb-6">

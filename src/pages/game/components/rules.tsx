@@ -41,6 +41,7 @@ export default function Rules() {
           users with a connected wallet will be able to observe the live game
           and participate in voting.
         </p>
+        <img src="/img/rules.png" className="w-full mt-5" alt="" />
       </div>
 
       <div className="mt-5">

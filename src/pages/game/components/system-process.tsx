@@ -81,7 +81,10 @@ export default function SystemProcess() {
         {messages.map((messageIndex) => {
           const item = systemMessages[messageIndex];
           return (
-            <div key={messageIndex} className="terminal-line animate-fadeIn">
+            <div
+              key={messageIndex}
+              className="terminal-line animate-fadeIn text-lg"
+            >
               <p className="flex items-start">
                 <span className="text-[#63a11a] mr-2">[System]</span>
                 {item.highlight ? (

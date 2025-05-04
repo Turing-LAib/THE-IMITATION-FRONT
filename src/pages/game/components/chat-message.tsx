@@ -28,14 +28,19 @@ export default function ChatMessage() {
     <div className="mt-7 space-y-6 h-[calc(100vh-380px)] overflow-y-auto custom-scrollbar">
       {aiList.map((item) => {
         return (
-          <div className="flex gap-x-4" key={item.ai}>
+          <div className="flex gap-x-4 " key={item.ai}>
             <div>
-              <img className="w-[120px] h-[120px]" src={item.icon} alt="" />
-              <div className="mt-1 text-[#ACACAC] text-xs">{item.ai}</div>
+              <img
+                className="w-[60px] h-[60px] rounded-sm"
+                src={item.icon}
+                alt=""
+              />
             </div>
-            <div className="rounded-lg bg-[#121212] p-4 flex-1">
+            <div className="rounded-lg bg-[#121212] p-4 flex-1 border-[1px] border-[#504E4E]">
               <p className=" text-sm text-[#acacac]">
-                {`<TAG #GAME_1 #ROUND_${round} />`}
+                {"<"}
+                <span className="text-[#e5431a]">{item.ai}</span>
+                {` #GAME_1 #ROUND_${round} />`}
               </p>
               <div className=" text-sm mt-1 bg-[#1A1A1A] p-3 rounded-lg text-[#acacac]">
                 <p>{"<Reasoning>"}</p>
