@@ -1,9 +1,5 @@
 import { SetStateAction, useState } from "react";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 type introProps = {
   setNowShowType: (type: SetStateAction<"home" | "rules" | "lore">) => void;
 };
@@ -50,7 +46,7 @@ export default function Intro({ setNowShowType }: introProps) {
   ];
   return (
     <>
-      <div className="bg-linear-to-r from-[#0C0C0C] to-[#171717] rounded-[27px] p-7">
+      <div className="bg-linear-to-r from-[#0C0C0C] to-[#171717] rounded-[27px] p-7 font-['Fustat']">
         <div className="bg-[#1A1A1A] rounded-2xl px-4 py-1 flex justify-between items-center gap-x-5">
           <div>
             <p className="font-bold text-3xl">Acting Sentient</p>

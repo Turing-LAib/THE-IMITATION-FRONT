@@ -40,7 +40,7 @@ export default function LiveVote() {
     toast.success(voteId);
   };
   return (
-    <div className="bg-linear-to-r from-[#0C0C0C] to-[#171717] rounded-3xl p-3 mt-7">
+    <div className="bg-linear-to-r from-[#0C0C0C] to-[#171717] rounded-[27px] p-7 mt-7">
       <div className="bg-[#1A1A1A] rounded-2xl px-4 py-1 mb-5">
         <p className="font-bold text-3xl">Live Vote</p>
         <p className="text-[#ACACAC]">GAME - I</p>

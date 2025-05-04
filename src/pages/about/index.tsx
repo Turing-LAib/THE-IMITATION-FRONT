@@ -3,7 +3,7 @@ import Laryout from "@/components/layout";
 export default function AboutPage() {
   return (
     <Laryout>
-      <div className="text-white w-[1250px] m-auto rounded-2xl px-8 py-6 bg-gradient-to-r from-[#0C0C0C] to-[#171717]">
+      <div className="text-white w-[1250px] m-auto rounded-2xl px-8 py-6 bg-gradient-to-r from-[#0C0C0C] to-[#171717] font-['Fustat']">
         <div className="bg-[#1A1A1A] px-4 py-1 rounded-xl flex items-center gap-x-4">
           <p className="text-3xl font-bold">ABOUT</p>
           <img src="/img/header-logo.png" className="h-3" alt="" />

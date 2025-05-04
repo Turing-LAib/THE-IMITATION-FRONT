@@ -5,6 +5,7 @@ import GameItem from "./compontens/game-item";
 import HomeTextAnimation from "@/components/home-text-animation";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
+import Footer from "@/components/footer";
 export default function Home() {
   const [isOver, setIsOver] = useState(false);
   const navigate = useNavigate();
@@ -68,6 +69,7 @@ export default function Home() {
               })}
             </div>
           </div>
+          <Footer />
         </Laryout>
       )}
     </div>

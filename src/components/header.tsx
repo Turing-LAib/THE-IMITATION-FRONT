@@ -16,7 +16,7 @@ export default function Header() {
             About
           </Link>
           <Link
-            to={"https://github.com/Turing-LAib/turing-lab-front"}
+            to={"https://github.com/Turing-LAib"}
             target="_blank"
             className="hover:opacity-70 transition-all"
           >

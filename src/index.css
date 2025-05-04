@@ -11,14 +11,38 @@
 @font-face {
     font-family: "JetBrains Mono";
     src: url("/font/JetBrainsMono-Bold.ttf") format("truetype");
-    font-weight: bold;
+    font-weight: 700;
     /* Bold weight */
     font-style: normal;
 }
 
 @font-face {
     font-family: "JetBrains Mono";
-    src: url("/font/JetBrainsMono-Light.ttf") format("truetype");
+    src: url("/font/JetBrainsMono-ExtraLight.ttf") format("truetype");
+    font-weight: 300;
+    /* Medium weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Fustat";
+    src: url("/font/fustat-latin-400-normal.ttf") format("truetype");
+    font-weight: normal;
+    /* Regular weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Fustat";
+    src: url("/font/fustat-latin-700-normal.ttf") format("truetype");
+    font-weight: 700;
+    /* Bold weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Fustat";
+    src: url("/font/fustat-latin-200-normal.ttf") format("truetype");
     font-weight: 300;
     /* Medium weight */
     font-style: normal;
