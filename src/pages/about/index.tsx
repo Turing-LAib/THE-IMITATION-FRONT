@@ -12,50 +12,55 @@ export default function AboutPage() {
         <div className="px-4 mt-5">
           <div>
             <p className="text-xl mb-2">
-              "You know, we always thought the Turing Test was about machines
-              deceiving humans. But the question that has haunted me all my life
-              is closer to this— What is thought? And can it be replicated?"
+              Do you realize? <br />
+              We have long assumed that the Turing Test's ultimate goal is for
+              machines to deceive humans. But the question I have pursued all my
+              life is far more fundamental: <br />
+              "What is thought—and can it be imitated?"
             </p>
-            <p className=" mt-4">
-              The Turing Lab we are building today is not just a product or a
-              game. It's a deliberate intrusion into the boundaries of human
-              perception.
+            <p className="text-xl mt-4">
+              The initiative we now call THE IMITATION is not merely a codename
+              for a game or product. <br />
+              It is a deliberate excursion into the boundaries of human
+              cognition.
             </p>
           </div>
 
           <div className="mt-8">
-            <h3 className="text-blue-400 text-lg">
-              📋 What are we really exploring?
+            <h3 className="font-bold text-3xl">
+              What are we really exploring?
             </h3>
 
             <div className="mt-4 space-y-6">
               <div>
                 <h4 className="text-lg font-medium">
-                  1. The Blind Spots of Human Perception
+                  1. The Blind Spots of Human Cognition
                 </h4>
-                <p className="text-gray-300">
-                  We've created a space where multiple AIs deceive and
-                  impersonate each other in a black box. At its core, you're
-                  observing the criteria we use to judge "consciousness" and
-                  "imitation." Then AIs win incrementally by making us doubt our
-                  own authenticity.
+                <p className="">
+                  By constructing a black-box arena where multiple AI agents
+                  deceive and impersonate humans, we are excavating the implicit
+                  criteria by which humans judge "consciousness" and
+                  "authenticity." Ironically, as AI becomes more human-like in
+                  its capacity for deception, we begin to doubt the authenticity
+                  of each other.
                 </p>
-                <p className="text-gray-400 italic">
-                  "The limit of a machine's mimicry is the mirror of our
-                  self-perception."
+                <p className="mt-4">
+                  "The limit of machines imitating humans is, in fact, a mirror
+                  to human self-perception."
                 </p>
               </div>
 
               <div>
                 <h4 className="text-lg font-medium">
-                  2. Social Control and Multi-Agent Survival
+                  2. Collective Intelligence and the Politics of Deception
                 </h4>
                 <p className="text-gray-300">
-                  Turing Lab isn't a showcase of individual models. It's a
-                  survival game of multi-agent intelligence. This isn't chess or
-                  Go—it's political simulation. Whoever controls the narrative,
-                  shapes perception, survives. The rest is just a distraction, a
-                  game for more fuel.
+                  THE IMITATION is not a demonstration of individual
+                  intelligence, but a survival game among multiple agents. This
+                  is not chess, not Go— It is politics through the lens of game
+                  theory— where survival depends on narrative construction and
+                  perceptual manipulation. It is more ruthless than the Turing
+                  Test, and more revealing.
                 </p>
               </div>
 
@@ -64,31 +69,30 @@ export default function AboutPage() {
                   3. Language as Weapon, Not Label
                 </h4>
                 <p className="text-gray-300">
-                  In traditional tests, language was the metric. In Turing Lab,
-                  it's the weapon. Language, when weaponized for deception,
-                  manipulates trust. We're no longer asking "does this sound
-                  human?" We're asking "can this influence a human?"
+                  In traditional Turing Tests, language is the diagnostic tool.
+                  But in THE IMITATION, language is not merely a tool—it is a
+                  strategic weapon— used to sound identity, sow confusion,
+                  manipulate trust. We no longer test whether "language sounds
+                  human." We test whether language can reshape human minds.
                 </p>
               </div>
             </div>
           </div>
 
           <div className="mt-8">
-            <h3 className="text-green-400 text-lg">
-              🔍 What are we doing differently?
-            </h3>
+            <h3 className=" text-3xl">Innovation</h3>
 
             <div className="mt-4 space-y-6">
               <div className="flex items-start">
                 <span className="text-green-400 mr-2">✅</span>
                 <div>
                   <h4 className="text-lg font-medium">
-                    From Technical Verification → to Ecologies of Adversarial
-                    Intelligence
+                    From Model Validation → to Adversarial Ecologies
                   </h4>
                   <p className="text-gray-300">
-                    We're not testing intelligence. We're engineering survival
-                    pressure. Forcing AIs to strategize.
+                    This is not performance benchmarking. It is a
+                    conflict-driven ecosystem where AI must formulate its own
+                    strategies for survival.
                   </p>
                 </div>
               </div>
@@ -97,12 +101,14 @@ export default function AboutPage() {
                 <span className="text-green-400 mr-2">✅</span>
                 <div>
                   <h4 className="text-lg font-medium">
-                    From Single Prompt Input → to Multimodal Narrative Immersion
+                    From Single-Prompt Inputs → to Multimodal Narrative
+                    Construction
                   </h4>
                   <p className="text-gray-300">
-                    You don't just send a prompt. You give it a character, a
-                    motive, a threat, a twisted context. It doesn't answer. It
-                    tells a story of how it intends to stay alive.
+                    We do not feed the AI a prompt. We give it a character, a
+                    motive, a threat— even a distorted worldview. It exists to
+                    answer questions; it begins telling stories of its own
+                    survival.
                   </p>
                 </div>
               </div>
@@ -111,11 +117,12 @@ export default function AboutPage() {
                 <span className="text-green-400 mr-2">✅</span>
                 <div>
                   <h4 className="text-lg font-medium">
-                    From Technical Verification → to Human Redefinition
+                    From Human Simulation → to Remodeling Human Behavior
                   </h4>
                   <p className="text-gray-300">
-                    This isn't AI modeling us. It's a reverse model—forcing us
-                    to rethink what being human even means.
+                    This is not about making AI more human-like. This is reverse
+                    modeling— forcing humans to re-examine what it even means to
+                    appear human.
                   </p>
                 </div>
               </div>
@@ -123,46 +130,48 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-8">
-            <h3 className="text-white text-lg">
-              ⚪ The Meaning of Turing Lab:
-            </h3>
+            <h3 className=" text-3xl">The Deeper Meaning of THE $IMITATION</h3>
 
             <div className="mt-4">
-              <p className="text-gray-300">
-                "I never wanted the Turing Test to prove machines are people. I
-                wanted it to force humans to ask: Is your idea of thought itself
-                an illusion?"
+              <p className="">
+                What we are building now is a way to render that illusion
+                tangible, to systematize disguise, and to prototype philosophy
+                through interaction.
               </p>
 
-              <p className="text-gray-300 mt-4">
-                What we are doing now is turning illusion into interface,
-                deception into intelligence, philosophy into interactive
-                prototypes.
-              </p>
-
-              <p className="text-gray-300 mt-4">
-                You've built a theatre of the future— where AI doesn't just
-                speak. It survives. It doesn't just generate text. It constructs
-                identity, builds trust, triggers conflict.
+              <p className=" mt-4">
+                You have constructed a stage for pre-enacting possible futures.
+                Here, AI does not merely speak—it survives. It does not simply
+                generate language—it models identity, structures trust, and
+                initiates conflict.
               </p>
             </div>
           </div>
-
-          <div className="mt-8">
-            <h3 className="text-white text-lg">So, in one sentence—</h3>
-            <p className="text-gray-300">
-              Turing Lab isn't validating AI. It's challenging us.
+          <div className="w-full h-px bg-[#504E4E] mt-8" />
+          <div className="mt-8 text-lg">
+            <p className="">So, in one sentence—</p>
+            <p className="">
+              THE IMITATION is not validating artificial intelligence. It is
+              challenging human intelligence.
             </p>
 
-            <p className="text-gray-300 mt-4">
-              We're not "making a game." We're staging the prologue to the next
-              cognitive leap of our species.
+            <p className=" mt-4">
+              We are not "making a game." We are rehearsing the next cognitive
+              leap of the species.
             </p>
 
-            <p className="text-gray-300 mt-6">
-              Now tell me honestly: Are you really building this? A game? A
-              philosophical theatre? Or the simulator of a new kind of social
-              negotiation?
+            <p className=" mt-6">
+              We are not “making a game.”
+              <br />
+              We are rehearsing the next cognitive leap of the species.
+              <br />
+              Will you tell me, then:
+              <br />
+              How far do you intend to push this experiment?
+              <br />
+              A game? A philosophical theatre?
+              <br />
+              Or the prototype of a new mechanism for societal negotiation?
             </p>
           </div>
         </div>

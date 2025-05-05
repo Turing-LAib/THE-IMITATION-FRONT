@@ -47,7 +47,7 @@ export default function Intro({ setNowShowType }: introProps) {
   return (
     <>
       <div className="bg-linear-to-r from-[#0C0C0C] to-[#171717] rounded-[27px] p-7 font-['Fustat']">
-        <div className="bg-[#1A1A1A] rounded-2xl px-4 py-1 flex justify-between items-center gap-x-5">
+        <div className="bg-[#1A1A1A] rounded-2xl p-3 flex justify-between items-center gap-x-5">
           <div>
             <p className="font-bold text-3xl">Acting Sentient</p>
             <p className="text-[#ACACAC]">GAME - I</p>
@@ -72,7 +72,7 @@ export default function Intro({ setNowShowType }: introProps) {
             );
           })}
         </div>
-        <div className="mt-5">
+        <div className="mt-5 pl-3">
           {textList.map((item, index) => (
             <TextItem key={index} title={item.title} content={item.content} />
           ))}
