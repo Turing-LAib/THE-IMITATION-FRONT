@@ -16,6 +16,13 @@ export default function Header() {
             About
           </Link>
           <Link
+            to={"https://x.com/Theimitationai"}
+            target="_blank"
+            className="hover:opacity-70 transition-all"
+          >
+            X
+          </Link>
+          <Link
             to={"https://github.com/Turing-LAib"}
             target="_blank"
             className="hover:opacity-70 transition-all"

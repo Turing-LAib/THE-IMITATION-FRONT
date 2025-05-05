@@ -1,28 +1,21 @@
 import Laryout from "@/components/layout";
 import LoadingVideo from "@/components/loading-video";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GameItem from "./compontens/game-item";
 import HomeTextAnimation from "@/components/home-text-animation";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import Footer from "@/components/footer";
+import { GameListItem, getGameList } from "@/services/getGame";
 export default function Home() {
   const [isOver, setIsOver] = useState(false);
   const navigate = useNavigate();
-  const gameList = [
-    {
-      id: "1",
-      title: "Acting Sentient",
-      img: "/img/game1.png",
-      isActive: true,
-    },
-    {
-      id: "2",
-      title: "Acting Sentient",
-      img: "/img/game1.png",
-      isActive: false,
-    },
-  ];
+  const [gameList, setGameList] = useState<GameListItem[]>([]);
+  useEffect(() => {
+    getGameList().then((res) => {
+      setGameList(res);
+    });
+  }, []);
   return (
     <div>
       {isOver ? (
@@ -55,11 +48,11 @@ export default function Home() {
               {gameList.map((item) => {
                 return (
                   <GameItem
-                    key={item.id}
+                    key={item._id}
                     item={item}
                     onClick={() => {
-                      if (item.isActive) {
-                        navigate(`/game/${item.id}`);
+                      if (item.phrase < 5) {
+                        navigate(`/game/${item._id}`);
                       } else {
                         toast.warning("Coming Soon");
                       }

@@ -1,80 +1,90 @@
-import { useState } from "react";
-
-export default function ChatMessage() {
-  const aiList = [
-    {
-      ai: "Claude-3.7-Sonnet",
-      icon: "/img/ai.png",
-    },
-    {
-      ai: "Claude-3.6-Sonnet",
-      icon: "/img/ai.png",
-    },
-    {
-      ai: "Claude-3.5-Sonnet",
-      icon: "/img/ai.png",
-    },
-    {
-      ai: "Claude-3.4-Sonnet",
-      icon: "/img/ai.png",
-    },
-    {
-      ai: "Claude-3.3-Sonnet",
-      icon: "/img/ai.png",
-    },
-  ];
-  const [round] = useState(1);
+import { getGameChat } from "@/services/getChat";
+import { GameListItem } from "@/services/getGame";
+import { PlayerListItem } from "@/services/getPlayer";
+import { numberToRoman } from "@/utils/format";
+import { useEffect, useState } from "react";
+import Markdown from "react-markdown";
+type chatMessageProps = {
+  gameData: GameListItem;
+  playerList: PlayerListItem[];
+};
+export default function ChatMessage({
+  gameData,
+  playerList,
+}: chatMessageProps) {
+  const [aiList, setAiList] = useState<
+    (PlayerListItem & {
+      phraseList: { reasoning: string; content: string; phrase: number }[];
+    })[]
+  >([]);
+  useEffect(() => {
+    if (playerList.length === 0) return;
+    getGameChat(gameData._id, gameData.phrase, gameData.round).then((res) => {
+      const groupByPhrase = res.reduce((acc, item) => {
+        const key = item.playerId.toString();
+        if (!acc[key]) {
+          acc[key] = [];
+        }
+        if (acc[key].length <= item.phrase) {
+          acc[key][item.phrase] = {
+            reasoning: "",
+            content: "",
+            phrase: item.phrase,
+          };
+        }
+        if (item.type === 1) {
+          acc[key][item.phrase].content = item.content;
+        } else if (item.type === 2) {
+          acc[key][item.phrase].reasoning = item.content;
+        }
+        return acc;
+      }, {} as { [key: string]: { reasoning: string; content: string; phrase: number }[] });
+      const list = playerList.map((item) => {
+        return {
+          ...item,
+          phraseList: groupByPhrase[item._id.toString()],
+        };
+      });
+      setAiList(list);
+    });
+  }, [playerList, gameData._id, gameData.phrase, gameData.round]);
   return (
     <div className="mt-7 space-y-6 h-[calc(100vh-380px)] overflow-y-auto custom-scrollbar">
       {aiList.map((item) => {
         return (
-          <div className="flex gap-x-4 " key={item.ai}>
+          <div className="flex gap-x-4 " key={item._id}>
             <div>
               <img
                 className="w-[60px] h-[60px] rounded-sm"
-                src={item.icon}
+                src={item.img || "/img/ai.png"}
                 alt=""
               />
             </div>
-            <div className="rounded-lg bg-[#121212] p-4 flex-1 border-[1px] border-[#504E4E]">
-              <p className=" text-sm text-[#acacac]">
-                {"<"}
-                <span className="text-[#e5431a]">{item.ai}</span>
-                {` #GAME_1 #ROUND_${round} />`}
-              </p>
-              <div className=" text-sm mt-1 bg-[#1A1A1A] p-3 rounded-lg text-[#acacac]">
-                <p>{"<Reasoning>"}</p>
-                <p>
-                  1. Identifying AI from humans. When faced with accusations, we
-                  must become "human" by sharing personal stories, highlighting
-                  personality and emotional states, and proving our humanity
-                  through subtle and nuanced expressions. I am playing a role,
-                  demonstrating genuine human emotions and personal background
-                  stories, emphasizing human characteristics while maintaining
-                  compliance. These traits include aspects of family, work, and
-                  life experiences.
-                </p>
-              </div>
-              <div className="mt-4">
-                <p className="text-[#63a11a] mb-4">{"<Message>"}</p>
-                <p className="mb-2">
-                  My name is Lin Yi, 34 years old. I was a mechanical engineer
-                  on the surface, skilled in modifying and repairing all kinds
-                  of heavy equipment. Six months ago, I joined an expedition
-                  team to the contaminated border zone in search of resources.
-                  That experience taught me how fragile and precious life truly
-                  is.
-                </p>
-                <p className="mb-2">
-                  I grew up in an ordinary family. My father, a retired soldier,
-                  taught me to stand by my principles and never give up. My
-                  mother, a kindergarten teacher, taught me warmth and kindness.
-                  Before we moved into the shelter, I lived a relatively simple
-                  but peaceful life, spending my days optimizing mechanical arms
-                  for better energy efficiency—never imagining I’d be dragged
-                  into a life-or-death interrogation like this.
-                </p>
-              </div>
+            <div className="rounded-lg bg-[#121212] p-4 flex-1 border-[1px] border-[#504E4E] space-y-10">
+              {item.phraseList?.map((ite) => {
+                return (
+                  <div key={ite.phrase}>
+                    <p className=" text-sm text-[#acacac]">
+                      {"<"}
+                      <span className="text-[#e5431a]">{item.model}</span>
+                      {` #GAME_${numberToRoman(Number(gameData._id))} #ROUND_${
+                        ite.phrase
+                      } />`}
+                    </p>
+                    <div className=" text-sm mt-1 bg-[#1A1A1A] p-3 rounded-lg text-[#acacac]">
+                      <p>{"<Reasoning>"}</p>
+                      <p className="whitespace-pre-wrap">
+                        {ite.reasoning || "This model is not supported"}
+                      </p>
+                    </div>
+                    <div className="mt-4">
+                      <p className="text-[#63a11a] mb-4">{"<Message>"}</p>
+                      {/* <p className="whitespace-pre-wrap">{ite.content}</p> */}
+                      <Markdown>{ite.content}</Markdown>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         );

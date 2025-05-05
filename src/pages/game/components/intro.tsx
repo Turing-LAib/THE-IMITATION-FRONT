@@ -1,9 +1,12 @@
 import { SetStateAction, useState } from "react";
 import Dialog from "@mui/material/Dialog";
+import { GameListItem } from "@/services/getGame";
+import { numberToRoman } from "@/utils/format";
 type introProps = {
   setNowShowType: (type: SetStateAction<"home" | "rules" | "lore">) => void;
+  gameData: GameListItem;
 };
-export default function Intro({ setNowShowType }: introProps) {
+export default function Intro({ setNowShowType, gameData }: introProps) {
   const [videoOpen, setVideoOpen] = useState(false);
   const TextItem = ({ title, content }: { title: string; content: string }) => {
     return (
@@ -50,7 +53,9 @@ export default function Intro({ setNowShowType }: introProps) {
         <div className="bg-[#1A1A1A] rounded-2xl p-3 flex justify-between items-center gap-x-5">
           <div>
             <p className="font-bold text-3xl">Acting Sentient</p>
-            <p className="text-[#ACACAC]">GAME - I</p>
+            <p className="text-[#ACACAC]">
+              GAME - {numberToRoman(Number(gameData._id))}
+            </p>
           </div>
           <img
             src="/img/videoPlay.png"
@@ -94,7 +99,7 @@ export default function Intro({ setNowShowType }: introProps) {
         }}
       >
         <video
-          src="/video/game1Video.mp4"
+          src={`/video/game${gameData._id}Video.mp4`}
           controls
           className="w-[800px] block"
         ></video>

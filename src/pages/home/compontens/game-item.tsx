@@ -1,12 +1,8 @@
+import { GameListItem } from "@/services/getGame";
 import { cn } from "@/utils/cn";
 import { numberToRoman } from "@/utils/format";
 type gameItemType = {
-  item: {
-    id: string;
-    title: string;
-    img: string;
-    isActive: boolean;
-  };
+  item: GameListItem;
   onClick: () => void;
 };
 export default function GameItem({ item, onClick }: gameItemType) {
@@ -14,19 +10,19 @@ export default function GameItem({ item, onClick }: gameItemType) {
     <div
       className={cn(
         "group",
-        item.isActive ? "cursor-pointer" : "cursor-not-allowed opacity-70"
+        item.phrase < 5 ? "cursor-pointer" : "cursor-not-allowed opacity-70"
       )}
       onClick={onClick}
     >
-      <div>GAME-{numberToRoman(Number(item.id))}</div>
+      <div>GAME-{numberToRoman(Number(item._id))}</div>
       <div className="w-full overflow-hidden relative ">
         <img
           className="w-full transition-transform duration-500 ease-in-out group-hover:scale-110"
-          src={item.img}
+          src={`/img/game${item._id}.png`}
           alt=""
         />
         <div className="w-[120px] absolute left-5 bottom-5 text-2xl">
-          {item.title}
+          {item.name}
         </div>
       </div>
     </div>
