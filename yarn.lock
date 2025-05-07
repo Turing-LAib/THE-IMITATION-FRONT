@@ -664,7 +664,7 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.27.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.27.0", "@babel/runtime@^7.27.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
   version "7.27.1"
   resolved "https://registry.npmmirror.com/@babel/runtime/-/runtime-7.27.1.tgz#9fce313d12c9a77507f264de74626e87fd0dc541"
   integrity sha512-1x3D2xEk2fRo3PAhwQwu5UubzgiVWSXTBfWpVd2Mx2AzRqJuDJCsgaDVZ7HB5iGzDW1Hl1sWN2mFyKjmR9uAog==
@@ -1581,6 +1581,13 @@
   resolved "https://registry.npmmirror.com/@mui/core-downloads-tracker/-/core-downloads-tracker-7.0.2.tgz#2e6dcaf5027a3957d37797b8dce5c15c78fd4b82"
   integrity sha512-TfeFU9TgN1N06hyb/pV/63FfO34nijZRMqgHk0TJ3gkl4Fbd+wZ73+ZtOd7jag6hMmzO9HSrBc6Vdn591nhkAg==
 
+"@mui/icons-material@^7.1.0":
+  version "7.1.0"
+  resolved "https://registry.npmmirror.com/@mui/icons-material/-/icons-material-7.1.0.tgz#c20860d4f2f09160697a3dd353234a802c45b1e9"
+  integrity sha512-1mUPMAZ+Qk3jfgL5ftRR06ATH/Esi0izHl1z56H+df6cwIlCWG66RXciUqeJCttbOXOQ5y2DCjLZI/4t3Yg3LA==
+  dependencies:
+    "@babel/runtime" "^7.27.1"
+
 "@mui/material@^7.0.2":
   version "7.0.2"
   resolved "https://registry.npmmirror.com/@mui/material/-/material-7.0.2.tgz#444de6ab1d0856b638f98833f536c80293c66005"
@@ -2224,6 +2231,11 @@
   integrity sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==
   dependencies:
     "@sinonjs/commons" "^3.0.0"
+
+"@socket.io/component-emitter@~3.1.0":
+  version "3.1.2"
+  resolved "https://registry.npmmirror.com/@socket.io/component-emitter/-/component-emitter-3.1.2.tgz#821f8442f4175d8f0467b9daf26e3a18e2d02af2"
+  integrity sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==
 
 "@solana/buffer-layout-utils@^0.2.0":
   version "0.2.0"
@@ -3686,6 +3698,13 @@ debug@^4.0.0, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3
   dependencies:
     ms "^2.1.3"
 
+debug@~4.3.1, debug@~4.3.2:
+  version "4.3.7"
+  resolved "https://registry.npmmirror.com/debug/-/debug-4.3.7.tgz#87945b4151a011d76d95a198d7111c865c360a52"
+  integrity sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==
+  dependencies:
+    ms "^2.1.3"
+
 decamelize@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmmirror.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
@@ -3835,6 +3854,22 @@ encodeurl@~2.0.0:
   version "2.0.0"
   resolved "https://registry.npmmirror.com/encodeurl/-/encodeurl-2.0.0.tgz#7b8ea898077d7e409d3ac45474ea38eaf0857a58"
   integrity sha512-Q0n9HRi4m6JuGIV1eFlmvJB7ZEVxu93IrMyiMsGC0lrMJMWzRgx6WGquyfQgZVb31vhGgXnfmPNNXmxnOkRBrg==
+
+engine.io-client@~6.6.1:
+  version "6.6.3"
+  resolved "https://registry.npmmirror.com/engine.io-client/-/engine.io-client-6.6.3.tgz#815393fa24f30b8e6afa8f77ccca2f28146be6de"
+  integrity sha512-T0iLjnyNWahNyv/lcjS2y4oE358tVS/SYQNxYXGAJ9/GLgH4VCvOQ/mhTjqU88mLZCQgiG8RIegFHYCdVC+j5w==
+  dependencies:
+    "@socket.io/component-emitter" "~3.1.0"
+    debug "~4.3.1"
+    engine.io-parser "~5.2.1"
+    ws "~8.17.1"
+    xmlhttprequest-ssl "~2.1.1"
+
+engine.io-parser@~5.2.1:
+  version "5.2.3"
+  resolved "https://registry.npmmirror.com/engine.io-parser/-/engine.io-parser-5.2.3.tgz#00dc5b97b1f233a23c9398d0209504cf5f94d92f"
+  integrity sha512-HqD3yTBfnBxIrbnM1DoD6Pcq8NECnh8d4As1Qgh0z5Gg3jRRIqijury0CL3ghu/edArpUYiYqQiDUQBIs4np3Q==
 
 enhanced-resolve@^5.18.1:
   version "5.18.1"
@@ -6944,6 +6979,24 @@ slice-ansi@^2.0.0:
     astral-regex "^1.0.0"
     is-fullwidth-code-point "^2.0.0"
 
+socket.io-client@^4.8.1:
+  version "4.8.1"
+  resolved "https://registry.npmmirror.com/socket.io-client/-/socket.io-client-4.8.1.tgz#1941eca135a5490b94281d0323fe2a35f6f291cb"
+  integrity sha512-hJVXfu3E28NmzGk8o1sHhN3om52tRvwYeidbj7xKy2eIIse5IoKX3USlS6Tqt3BHAtflLIkCQBkzVrEEfWUyYQ==
+  dependencies:
+    "@socket.io/component-emitter" "~3.1.0"
+    debug "~4.3.2"
+    engine.io-client "~6.6.1"
+    socket.io-parser "~4.2.4"
+
+socket.io-parser@~4.2.4:
+  version "4.2.4"
+  resolved "https://registry.npmmirror.com/socket.io-parser/-/socket.io-parser-4.2.4.tgz#c806966cf7270601e47469ddeec30fbdfda44c83"
+  integrity sha512-/GbIKmo8ioc+NIWIhwdecY0ge+qVBSMdgxGygevmdHj24bsfgtCmcUUcQ5ZzcylGFHsN3k4HB4Cgkl96KVnuew==
+  dependencies:
+    "@socket.io/component-emitter" "~3.1.0"
+    debug "~4.3.1"
+
 sonner@^2.0.3:
   version "2.0.3"
   resolved "https://registry.npmmirror.com/sonner/-/sonner-2.0.3.tgz#de7cdbc4b6a25ac3f0a9e0aed3748e0b3d6e092e"
@@ -7659,6 +7712,16 @@ ws@^7, ws@^7.5.1, ws@^7.5.10:
   version "7.5.10"
   resolved "https://registry.npmmirror.com/ws/-/ws-7.5.10.tgz#58b5c20dc281633f6c19113f39b349bd8bd558d9"
   integrity sha512-+dbF1tHwZpXcbOJdVOkzLDxZP1ailvSxM6ZweXTegylPny803bFhA+vqBYw4s31NSAk4S2Qz+AKXK9a4wkdjcQ==
+
+ws@~8.17.1:
+  version "8.17.1"
+  resolved "https://registry.npmmirror.com/ws/-/ws-8.17.1.tgz#9293da530bb548febc95371d90f9c878727d919b"
+  integrity sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==
+
+xmlhttprequest-ssl@~2.1.1:
+  version "2.1.2"
+  resolved "https://registry.npmmirror.com/xmlhttprequest-ssl/-/xmlhttprequest-ssl-2.1.2.tgz#e9e8023b3f29ef34b97a859f584c5e6c61418e23"
+  integrity sha512-TEU+nJVUUnA4CYJFLvK5X9AOeH4KvDvhIfm0vV1GaQRtchnG0hgK5p8hw/xjv8cunWYCsiPCSDzObPyhEwq3KQ==
 
 xtend@~4.0.1:
   version "4.0.2"

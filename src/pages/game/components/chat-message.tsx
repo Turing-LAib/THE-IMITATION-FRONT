@@ -1,12 +1,41 @@
+import Typewriter from "@/components/typewriter";
 import { getGameChat } from "@/services/getChat";
 import { GameListItem } from "@/services/getGame";
 import { PlayerListItem } from "@/services/getPlayer";
 import { numberToRoman } from "@/utils/format";
+import socket from "@/utils/websocket";
+import RotateRightIcon from "@mui/icons-material/RotateRight";
 import { useEffect, useState } from "react";
-import Markdown from "react-markdown";
 type chatMessageProps = {
   gameData: GameListItem;
   playerList: PlayerListItem[];
+};
+const ChatMessageItem = ({
+  content,
+  reasoning,
+}: {
+  reasoning: string;
+  content: string;
+}) => {
+  const [isReasoning, setIsReasoning] = useState(false);
+  return (
+    <>
+      <div className=" text-sm mt-1 bg-[#1A1A1A] p-3 rounded-lg text-[#acacac]">
+        <p>{"<Reasoning>"}</p>
+        <Typewriter
+          text={reasoning || "This model is not supported"}
+          className="max-h-[100px] custom-scrollbar"
+          onComplete={() => setIsReasoning(true)}
+        />
+      </div>
+      {isReasoning && (
+        <div className="mt-4">
+          <p className="text-[#63a11a] mb-4">{"<Message>"}</p>
+          <Typewriter text={content} />
+        </div>
+      )}
+    </>
+  );
 };
 export default function ChatMessage({
   gameData,
@@ -42,12 +71,46 @@ export default function ChatMessage({
       const list = playerList.map((item) => {
         return {
           ...item,
-          phraseList: groupByPhrase[item._id.toString()],
+          phraseList: groupByPhrase[item._id.toString()] || [],
         };
       });
       setAiList(list);
     });
   }, [playerList, gameData._id, gameData.phrase, gameData.round]);
+  const socketByAiList = (socketData: {
+    playerId: number;
+    message: {
+      content: string;
+      reasoning?: string;
+    };
+  }) => {
+    setAiList((list) => {
+      const newList = [...list];
+      newList.forEach((item) => {
+        if (item._id === socketData.playerId) {
+          item.phraseList?.push({
+            content: socketData.message.content,
+            reasoning: socketData.message.reasoning || "",
+            phrase: item.phraseList.length || 0,
+          });
+        }
+      });
+      return newList;
+    });
+  };
+  useEffect(() => {
+    const handleImposters = (res: string) => {
+      const socketData = JSON.parse(res);
+      socketByAiList(socketData);
+    };
+
+    socket.on("imposters", handleImposters);
+
+    return () => {
+      socket.off("imposters", handleImposters);
+    };
+  }, [socketByAiList]);
+
   return (
     <div className="mt-7 space-y-6 h-[calc(100vh-380px)] overflow-y-auto custom-scrollbar">
       {aiList.map((item) => {
@@ -71,20 +134,16 @@ export default function ChatMessage({
                         ite.phrase
                       } />`}
                     </p>
-                    <div className=" text-sm mt-1 bg-[#1A1A1A] p-3 rounded-lg text-[#acacac]">
-                      <p>{"<Reasoning>"}</p>
-                      <p className="whitespace-pre-wrap">
-                        {ite.reasoning || "This model is not supported"}
-                      </p>
-                    </div>
-                    <div className="mt-4">
-                      <p className="text-[#63a11a] mb-4">{"<Message>"}</p>
-                      {/* <p className="whitespace-pre-wrap">{ite.content}</p> */}
-                      <Markdown>{ite.content}</Markdown>
-                    </div>
+                    <ChatMessageItem
+                      content={ite.content}
+                      reasoning={ite.reasoning}
+                    />
                   </div>
                 );
               })}
+              {item.phraseList?.length === 0 && (
+                <RotateRightIcon className="animate-spin" />
+              )}
             </div>
           </div>
         );
