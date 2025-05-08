@@ -7,6 +7,11 @@ export interface PlayerListItem {
   status: number;
   name: string;
   img: string;
+  period: string;
+  round: number;
+  phrase: number;
+  startTime: string;
+  totalSecond: number;
 }
 
 export const defaultPlayerItem: PlayerListItem = {
@@ -15,6 +20,11 @@ export const defaultPlayerItem: PlayerListItem = {
   status: 1,
   name: "",
   img: "",
+  period: "",
+  round: 1,
+  phrase: 1,
+  startTime: "",
+  totalSecond: 0,
 };
 
 export const getPlayerList = async (

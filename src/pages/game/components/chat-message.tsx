@@ -101,6 +101,7 @@ export default function ChatMessage({
   useEffect(() => {
     const handleImposters = (res: string) => {
       const socketData = JSON.parse(res);
+      console.log(socketData);
       socketByAiList(socketData);
     };
 

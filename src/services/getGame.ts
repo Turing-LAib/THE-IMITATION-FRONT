@@ -10,6 +10,7 @@ export interface GameListItem {
   isVoting: boolean;
   name: string;
   totalSecond: number;
+  parase: number;
 }
 export const defaultGameItem: GameListItem = {
   _id: 1,
@@ -20,6 +21,7 @@ export const defaultGameItem: GameListItem = {
   period: "",
   isVoting: false,
   totalSecond: 0,
+  parase: 1,
 };
 // Get game list
 export const getGameList = async (): Promise<GameListItem[]> => {

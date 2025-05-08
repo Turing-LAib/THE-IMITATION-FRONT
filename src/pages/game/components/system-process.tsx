@@ -1,46 +1,19 @@
 import { useEffect, useState, useRef } from "react";
 import dayjs from "dayjs";
 import { GameListItem } from "@/services/getGame";
-const systemMessages = [
-  {
-    message: "System is initializing suspect profiles…",
-    highlight: false,
-  },
-  {
-    message: "Round 1 Interrogation Begins",
-    highlight: true,
-  },
-  {
-    message: "Suspect Self-Introductions",
-    highlight: true,
-  },
-  {
-    message:
-      "Each suspect will take turns introducing themselves, attempting to prove they are truly human…",
-    highlight: false,
-  },
-  {
-    message: "Analyzing suspect response patterns...",
-    highlight: false,
-  },
-  {
-    message: "Detecting potential AI behaviors...",
-    highlight: false,
-  },
-  {
-    message: "Security protocols engaged",
-    highlight: true,
-  },
-  {
-    message: "Preparing for first elimination round",
-    highlight: true,
-  },
-];
+import { GameSystemMessage, getGameSystemMessage } from "@/services/getChat";
+import { PlayerListItem } from "@/services/getPlayer";
 type SystemProcessProps = {
   gameData: GameListItem;
+  socketSystem: GameSystemMessage;
+  playerList: PlayerListItem[];
 };
-export default function SystemProcess({ gameData }: SystemProcessProps) {
-  const [messages, setMessages] = useState<number[]>([0]);
+export default function SystemProcess({
+  gameData,
+  socketSystem,
+  playerList,
+}: SystemProcessProps) {
+  const [messages, setMessages] = useState<GameSystemMessage[]>([]);
   const [timeLeft, setTimeLeft] = useState<{ time: string; secs: number }>({
     time: "",
     secs: 0,
@@ -57,12 +30,24 @@ export default function SystemProcess({ gameData }: SystemProcessProps) {
   };
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    console.log("socketSystem:", socketSystem);
+    if (socketSystem) {
+      setMessages((prevMessages) =>
+        prevMessages ? [...prevMessages, socketSystem] : [socketSystem]
+      );
+    }
+  }, [socketSystem]);
 
   useEffect(() => {
+    if (!gameData.startTime) return;
     const updateTimer = () => {
-      const result = calculateTimeDifference(gameData.startTime);
+      let time: string;
+      if (!socketSystem?.object?.startTime?.toString()) {
+        time = gameData.startTime;
+      } else {
+        time = socketSystem.object.startTime?.toString();
+      }
+      const result = calculateTimeDifference(time);
       setTimeLeft(result);
       return result.secs > 0;
     };
@@ -75,24 +60,14 @@ export default function SystemProcess({ gameData }: SystemProcessProps) {
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [gameData.startTime]);
-
+  }, [gameData.startTime, socketSystem?.object?.startTime?.toString()]);
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (messages.length >= systemMessages.length) {
-        clearInterval(interval);
-      }
-      setMessages((prev) => {
-        if (prev.length < systemMessages.length) {
-          return [...prev, prev.length];
-        } else {
-          return prev;
-        }
-      });
-    }, 2000);
-    return () => {
-      clearInterval(interval);
-    };
+    scrollToBottom();
+  }, [messages]);
+  useEffect(() => {
+    getGameSystemMessage(gameData._id).then((res) => {
+      setMessages(res);
+    });
   }, []);
   const calculateTimeDifference = (targetTime: string) => {
     const now = dayjs();
@@ -130,21 +105,56 @@ export default function SystemProcess({ gameData }: SystemProcessProps) {
         )}
       </div>
       <div className="h-[120px] mt-5 mb-5 overflow-y-auto custom-scrollbar terminal-style">
-        {messages.map((messageIndex) => {
-          const item = systemMessages[messageIndex];
+        {messages?.map((item, index) => {
           return (
-            <div
-              key={messageIndex}
-              className="terminal-line animate-fadeIn text-lg"
-            >
-              <p className="flex items-start">
-                <span className="text-[#63a11a] mr-2">[System]</span>
-                {item.highlight ? (
-                  <span className="text-[#8be421]">{item.message}</span>
-                ) : (
-                  <span>{item.message}</span>
-                )}
-              </p>
+            <div key={index} className=" text-lg">
+              {index === 0 && (
+                <p className="terminal-line animate-fadeIn">
+                  System is initializing suspect profiles
+                </p>
+              )}
+              {item.type === 1 && (
+                <p className="flex items-start terminal-line animate-fadeIn">
+                  <span className=" mr-2">[System]</span>
+                  <span className="text-[#63a11a]">
+                    Round {item.object.round} Interrogation Begins
+                  </span>
+                </p>
+              )}
+              {item.type === 1 && (
+                <p className="flex items-start terminal-line animate-fadeIn">
+                  <span className=" mr-2">
+                    [System] [phase{item.object.phrase}]
+                  </span>
+                  <span className="text-[#63a11a]">{item.object.period}</span>
+                </p>
+              )}
+              {item.type === 3 && (
+                <p className="flex items-start terminal-line animate-fadeIn">
+                  <span className=" mr-2">[System]</span>
+                  <span>Voting results</span>
+                </p>
+              )}
+              {item.type === 3 && (
+                <p className="flex items-start terminal-line animate-fadeIn">
+                  <span className=" mr-2">[System]</span>
+                  {item.object &&
+                    Object.entries(item.object).length > 0 &&
+                    Object.entries(item.object).map(([key, value]) => (
+                      <span key={key} className="text-[#63a11a]">
+                        {playerList?.find((ite) => ite._id === Number(key))
+                          ?.name || key}
+                        : {value},{" "}
+                      </span>
+                    ))}
+                </p>
+              )}
+              {item.type === 2 && (
+                <p className="flex items-start terminal-line animate-fadeIn">
+                  <span className=" mr-2">[System]</span>
+                  <span className="text-[#63a11a]">{item.object.name} Die</span>
+                </p>
+              )}
             </div>
           );
         })}
@@ -155,7 +165,12 @@ export default function SystemProcess({ gameData }: SystemProcessProps) {
           className="bg-[#8BE421] h-full w-full transition-all duration-1000 ease-in-out"
           style={{
             transform: `translateX(${
-              (timeLeft.secs / gameData.totalSecond) * 100 * -1
+              (timeLeft.secs /
+                (socketSystem
+                  ? socketSystem.object.totalSecond
+                  : gameData.totalSecond)) *
+              100 *
+              -1
             }%)`,
           }}
         />

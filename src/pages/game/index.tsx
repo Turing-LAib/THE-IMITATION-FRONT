@@ -11,6 +11,8 @@ import { defaultGameItem, GameListItem, getGameById } from "@/services/getGame";
 import { Dialog } from "@mui/material";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { getPlayerList, PlayerListItem } from "@/services/getPlayer";
+import socket from "@/utils/websocket";
+import { GameSystemMessage } from "@/services/getChat";
 
 export default function GamePage() {
   const { id } = useParams();
@@ -19,6 +21,7 @@ export default function GamePage() {
   const [nowShowType, setNowShowType] = useState<"rules" | "lore" | "home">(
     "home"
   );
+  const [socketSystem, setSocketSystem] = useState<GameSystemMessage>();
   const [gameData, setGameData] = useState<GameListItem>({
     ...defaultGameItem,
   });
@@ -37,6 +40,33 @@ export default function GamePage() {
       setPlayerList(res);
     });
   }, [gameData._id]);
+  useEffect(() => {
+    const handleSystem = (res: any) => {
+      console.log(res);
+      const socketData = JSON.parse(res);
+      if (socketData.type !== 2) {
+        setSocketSystem(socketData);
+      } else {
+        const socketPlayer = socketData;
+        setPlayerList((playerList) => {
+          return playerList.map((item) => {
+            return {
+              ...item,
+              status:
+                item._id === socketPlayer.object._id
+                  ? socketPlayer.object.status
+                  : item.status,
+            };
+          });
+        });
+      }
+    };
+    socket.on("system", handleSystem);
+
+    return () => {
+      socket.off("system", handleSystem);
+    };
+  }, []);
   return (
     <Layout>
       <div className="text-white grid grid-cols-4 gap-8">
@@ -47,7 +77,11 @@ export default function GamePage() {
         <div className="col-span-3">
           {nowShowType === "home" && (
             <>
-              <SystemProcess gameData={gameData} />
+              <SystemProcess
+                gameData={gameData}
+                playerList={playerList}
+                socketSystem={socketSystem as GameSystemMessage}
+              />
               <ChatMessage gameData={gameData} playerList={playerList} />
             </>
           )}
