@@ -1,4 +1,3 @@
-import { GameSystemMessage } from "@/services/getChat";
 import { GameListItem } from "@/services/getGame";
 import { PlayerListItem } from "@/services/getPlayer";
 import { getVoteInfo, submitVote, VoteInfo } from "@/services/vote";
@@ -15,7 +14,7 @@ type liveVoteProps = {
 export default function LiveVote({ gameData, playerList }: liveVoteProps) {
   const [voteId, setVoteId] = useState<number>();
   const { primaryWallet } = useDynamicContext();
-  const [voteInfo, setVoteInfo] = useState<VoteInfo | null>(null);
+  const [_, setVoteInfo] = useState<VoteInfo | null>(null);
   const [voteLoading, setVoteLoading] = useState<boolean>(false);
 
   useEffect(() => {
