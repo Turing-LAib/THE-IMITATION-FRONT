@@ -2,7 +2,6 @@ import Typewriter from "@/components/typewriter";
 import { getGameChat } from "@/services/getChat";
 import { GameListItem } from "@/services/getGame";
 import { PlayerListItem } from "@/services/getPlayer";
-import { numberToRoman } from "@/utils/format";
 import socket from "@/utils/websocket";
 import RotateRightIcon from "@mui/icons-material/RotateRight";
 import { useEffect, useState } from "react";
