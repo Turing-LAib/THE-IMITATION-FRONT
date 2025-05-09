@@ -10,7 +10,7 @@ export default function GameItem({ item, onClick }: gameItemType) {
     <div
       className={cn(
         "group",
-        item.phrase < 5 ? "cursor-pointer" : "cursor-not-allowed opacity-70"
+        item.phrase < 6 ? "cursor-pointer" : "cursor-not-allowed opacity-70"
       )}
       onClick={onClick}
     >

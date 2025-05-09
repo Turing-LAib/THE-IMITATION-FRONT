@@ -44,9 +44,8 @@ export default function GamePage() {
     const handleSystem = (res: any) => {
       console.log(res);
       const socketData = JSON.parse(res);
-      if (socketData.type !== 2) {
-        setSocketSystem(socketData);
-      } else {
+      setSocketSystem(socketData);
+      if (socketData.type === 2) {
         const socketPlayer = socketData;
         setPlayerList((playerList) => {
           return playerList.map((item) => {

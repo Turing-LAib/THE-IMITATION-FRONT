@@ -40,11 +40,13 @@ export default function SystemProcess({
 
   useEffect(() => {
     if (!gameData.startTime) return;
+
     const updateTimer = () => {
-      let time: string;
-      if (!socketSystem?.object?.startTime?.toString()) {
+      let time: string = "";
+      if (time === "") {
         time = gameData.startTime;
-      } else {
+      }
+      if (socketSystem?.type === 1) {
         time = socketSystem.object.startTime?.toString();
       }
       const result = calculateTimeDifference(time);
@@ -60,7 +62,7 @@ export default function SystemProcess({
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [gameData.startTime, socketSystem?.object?.startTime?.toString()]);
+  }, [gameData.startTime, socketSystem]);
   useEffect(() => {
     scrollToBottom();
   }, [messages]);

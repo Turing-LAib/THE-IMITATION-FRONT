@@ -51,7 +51,7 @@ export default function Home() {
                     key={item._id}
                     item={item}
                     onClick={() => {
-                      if (item.phrase < 5) {
+                      if (item.phrase < 6) {
                         navigate(`/game/${item._id}`);
                       } else {
                         toast.warning("Coming Soon");
