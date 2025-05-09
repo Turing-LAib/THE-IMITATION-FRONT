@@ -7,7 +7,9 @@ export default function Header() {
   return (
     <div className="fixed z-20 top-5 left-0 w-full">
       <div className="w-[calc(100%-80px)] max-w-[1600px] m-auto text-white  flex justify-between items-center  rounded-full border-[1px] border-[#504E4E] px-10 py-4  bg-linear-to-r from-[#0C0C0C] to-[#171717]">
-        <img src="/img/header-logo.png" alt="" />
+        <Link to={"/"}>
+          <img src="/img/header-logo.png" alt="" />
+        </Link>
         <div className="flex items-center gap-x-10">
           <Link to={"/"} className="hover:opacity-70 transition-all">
             Home

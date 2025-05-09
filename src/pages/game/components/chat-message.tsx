@@ -131,9 +131,7 @@ export default function ChatMessage({
                     <p className=" text-sm text-[#acacac]">
                       {"<"}
                       <span className="text-[#e5431a]">{item.model}</span>
-                      {` #GAME_${numberToRoman(Number(gameData._id))} #ROUND_${
-                        ite.phrase
-                      } />`}
+                      {` #${item.name} #ROUND_${ite.phrase} />`}
                     </p>
                     <ChatMessageItem
                       content={ite.content}
