@@ -1,4 +1,4 @@
-import { RouteObject } from "react-router-dom";
+import { Navigate, RouteObject } from "react-router-dom";
 import HomePage from "@/pages/home";
 import AboutPage from "@/pages/about";
 import GamePage from "@/pages/game";
@@ -14,6 +14,10 @@ const routes: RouteObject[] = [
   {
     path: "/game/:id",
     element: <GamePage />,
+  },
+  {
+    path: "*",
+    element: <Navigate to="/" replace />,
   },
 ];
 
