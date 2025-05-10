@@ -21,10 +21,14 @@ const Typewriter: React.FC<TypewriterProps> = ({
 
   const textGenerator = async function* () {
     let currentText = "";
-    for (const char of text) {
+    for (let i = 0; i < text.length; i += 2) {
       if (!isMounted.current) break;
       await new Promise((resolve) => setTimeout(resolve, speed));
-      currentText += char;
+      const chars =
+        i + 1 < text.length
+          ? text.substring(i, i + 2)
+          : text.substring(i, i + 1);
+      currentText += chars;
       yield currentText;
     }
   };
