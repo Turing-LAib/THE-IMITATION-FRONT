@@ -11,13 +11,12 @@ interface TypewriterProps {
 
 const Typewriter: React.FC<TypewriterProps> = ({
   text,
-  speed = 10,
+  speed = 5,
   onComplete,
   className,
   style,
 }) => {
   const [displayText, setDisplayText] = useState("");
-  const containerRef = useRef<HTMLDivElement>(null);
   const isMounted = useRef(true);
 
   const textGenerator = async function* () {
@@ -30,20 +29,6 @@ const Typewriter: React.FC<TypewriterProps> = ({
     }
   };
 
-  const autoScroll = () => {
-    if (!containerRef.current) return;
-
-    const container = containerRef.current;
-    const { scrollHeight, clientHeight, scrollTop } = container;
-    const threshold = 50;
-    if (scrollHeight - (clientHeight + scrollTop) < threshold) {
-      container.scrollTo({
-        top: scrollHeight,
-        behavior: "smooth",
-      });
-    }
-  };
-
   useEffect(() => {
     const executeEffect = async () => {
       const generator = textGenerator();
@@ -53,7 +38,6 @@ const Typewriter: React.FC<TypewriterProps> = ({
           if (!isMounted.current) break;
 
           setDisplayText(currentText);
-          autoScroll();
         }
         onComplete?.();
       } catch (err) {
@@ -70,7 +54,6 @@ const Typewriter: React.FC<TypewriterProps> = ({
 
   return (
     <div
-      ref={containerRef}
       className={className}
       style={{
         overflowY: "auto",

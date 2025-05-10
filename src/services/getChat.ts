@@ -5,21 +5,19 @@ import { PlayerListItem } from "./getPlayer";
 
 export interface GameChatResponse {
   playerId: number;
-  gameId: number;
-  phrase: number;
-  round: number;
-  type: number;
   content: string;
+  reasoning: string;
+  _id?: string;
+  time: string;
 }
 
 export const getGameChat = async (
   gameId: number,
-  phrase: number,
-  round: number
+  phrase: number
 ): Promise<GameChatResponse[]> => {
   try {
     const response = await fetch(
-      `${BASE_URL}api/game/chat?gid=${gameId}&phrase=${phrase}&round=${round}`,
+      `${BASE_URL}api/game/chat?gid=${gameId}&phrase=${phrase}`,
       {
         method: "GET",
         headers: {

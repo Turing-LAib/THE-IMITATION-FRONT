@@ -1,19 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import dayjs from "dayjs";
-import { GameListItem } from "@/services/getGame";
-import { GameSystemMessage, getGameSystemMessage } from "@/services/getChat";
+import { GameSystemMessage } from "@/services/getChat";
 import { PlayerListItem } from "@/services/getPlayer";
 type SystemProcessProps = {
-  gameData: GameListItem;
-  socketSystem: GameSystemMessage;
+  systemMessage: GameSystemMessage[];
   playerList: PlayerListItem[];
 };
 export default function SystemProcess({
-  gameData,
-  socketSystem,
+  systemMessage,
   playerList,
 }: SystemProcessProps) {
-  const [messages, setMessages] = useState<GameSystemMessage[]>([]);
   const [timeLeft, setTimeLeft] = useState<{ time: string; secs: number }>({
     time: "",
     secs: 0,
@@ -30,24 +26,13 @@ export default function SystemProcess({
   };
 
   useEffect(() => {
-    console.log("socketSystem:", socketSystem);
-    if (socketSystem) {
-      setMessages((prevMessages) =>
-        prevMessages ? [...prevMessages, socketSystem] : [socketSystem]
-      );
-    }
-  }, [socketSystem]);
-
-  useEffect(() => {
-    if (!gameData.startTime) return;
-
+    console.log("systemMessage:", systemMessage);
     const updateTimer = () => {
-      let time: string = "";
-      if (time === "") {
-        time = gameData.startTime;
-      }
-      if (socketSystem?.type === 1) {
-        time = socketSystem.object.startTime?.toString();
+      let time = "";
+      if (systemMessage[systemMessage.length - 1]?.type === 1) {
+        time = String(
+          systemMessage[systemMessage.length - 1]?.object?.startTime || ""
+        );
       }
       const result = calculateTimeDifference(time);
       setTimeLeft(result);
@@ -62,15 +47,10 @@ export default function SystemProcess({
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [gameData.startTime, socketSystem]);
+  }, [systemMessage.length]);
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
-  useEffect(() => {
-    getGameSystemMessage(gameData._id).then((res) => {
-      setMessages(res);
-    });
-  }, []);
+  }, [systemMessage.length]);
   const calculateTimeDifference = (targetTime: string) => {
     const now = dayjs();
     const target = dayjs(targetTime);
@@ -94,7 +74,7 @@ export default function SystemProcess({
     };
   };
   return (
-    <div className="">
+    <div>
       <div className="bg-[#1A1A1A] p-5 text-center rounded-full text-[#ACACAC]">
         {timeLeft.secs > 0 ? (
           <>
@@ -107,7 +87,7 @@ export default function SystemProcess({
         )}
       </div>
       <div className="h-[120px] mt-5 mb-5 overflow-y-auto custom-scrollbar terminal-style">
-        {messages?.map((item, index) => {
+        {systemMessage.map((item, index) => {
           return (
             <div key={index} className=" text-lg">
               {index === 0 && (
@@ -128,33 +108,33 @@ export default function SystemProcess({
                   <span className=" mr-2">
                     [System] [phase{item.object.phrase}]
                   </span>
-                  <span className="text-[#63a11a]">{item.object.period}</span>
+                  <span className="text-[#ff8e14]">{item.object.period}</span>
                 </p>
               )}
               {item.type === 3 && (
-                <p className="flex items-start terminal-line animate-fadeIn">
+                <p className="flex items-start terminal-line animate-fadeIn text-[#9747FF]">
                   <span className=" mr-2">[System]</span>
                   <span>Voting results</span>
                 </p>
               )}
               {item.type === 3 && (
-                <p className="flex items-start terminal-line animate-fadeIn">
+                <p className="flex items-start terminal-line animate-fadeIn text-[#9747FF]">
                   <span className=" mr-2">[System]</span>
                   {item.object &&
                     Object.entries(item.object).length > 0 &&
                     Object.entries(item.object).map(([key, value]) => (
-                      <span key={key} className="text-[#63a11a]">
+                      <span key={key}>
                         {playerList?.find((ite) => ite._id === Number(key))
                           ?.name || key}
-                        : {value},{" "}
+                        {` received ${value} votes.`}
                       </span>
                     ))}
                 </p>
               )}
               {item.type === 2 && (
-                <p className="flex items-start terminal-line animate-fadeIn">
+                <p className="flex items-start terminal-line animate-fadeIn text-[#E5431A]">
                   <span className=" mr-2">[System]</span>
-                  <span className="text-[#63a11a]">{item.object.name} Die</span>
+                  <span>{item.object.name} Die</span>
                 </p>
               )}
             </div>
@@ -168,9 +148,8 @@ export default function SystemProcess({
           style={{
             transform: `translateX(${
               (timeLeft.secs /
-                (socketSystem
-                  ? socketSystem.object.totalSecond
-                  : gameData.totalSecond)) *
+                (systemMessage[systemMessage.length - 1]?.object?.totalSecond ||
+                  0)) *
               100 *
               -1
             }%)`,

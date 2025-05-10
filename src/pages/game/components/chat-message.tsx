@@ -1,148 +1,189 @@
 import Typewriter from "@/components/typewriter";
-import { getGameChat } from "@/services/getChat";
-import { GameListItem } from "@/services/getGame";
-import { PlayerListItem } from "@/services/getPlayer";
-import socket from "@/utils/websocket";
-import RotateRightIcon from "@mui/icons-material/RotateRight";
-import { useEffect, useState } from "react";
+import { GameChatResponse } from "@/services/getChat";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import dayjs from "dayjs";
+import { useEffect, useMemo, useRef, useState } from "react";
 type chatMessageProps = {
-  gameData: GameListItem;
-  playerList: PlayerListItem[];
+  chatMessageList: (GameChatResponse & {
+    name: string;
+    img: string;
+  })[];
 };
 const ChatMessageItem = ({
   content,
   reasoning,
+  playerId,
+  onComplete,
 }: {
   reasoning: string;
   content: string;
+  playerId: number;
+  onComplete: () => void;
 }) => {
   const [isReasoning, setIsReasoning] = useState(false);
+  const getReasoningBg = (playerId: number) => {
+    switch (playerId) {
+      case 1:
+        return "#150000";
+      case 2:
+        return "#1E1400";
+      case 3:
+        return "#111F00";
+      case 4:
+        return "#00231F";
+      case 5:
+        return "#150025";
+      default:
+        return "#150025";
+    }
+  };
   return (
     <>
-      <div className=" text-sm mt-1 bg-[#1A1A1A] p-3 rounded-lg text-[#acacac]">
-        <p>{"<Reasoning>"}</p>
-        <Typewriter
-          text={reasoning || "This model is not supported"}
-          className="max-h-[100px] custom-scrollbar"
-          onComplete={() => setIsReasoning(true)}
-        />
-      </div>
+      <Accordion
+        sx={{
+          color: "#acacac",
+          background: getReasoningBg(playerId),
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon className="text-[#acacac]" />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+          <p>{"<Reasoning>"}</p>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typewriter
+            text={reasoning || "This model is not supported"}
+            onComplete={() => setIsReasoning(true)}
+          />
+        </AccordionDetails>
+      </Accordion>
       {isReasoning && (
         <div className="mt-4">
           <p className="text-[#63a11a] mb-4">{"<Message>"}</p>
-          <Typewriter text={content} />
+          <Typewriter text={content} onComplete={onComplete} />
         </div>
       )}
     </>
   );
 };
-export default function ChatMessage({
-  gameData,
-  playerList,
-}: chatMessageProps) {
-  const [aiList, setAiList] = useState<
-    (PlayerListItem & {
-      phraseList: { reasoning: string; content: string; phrase: number }[];
-    })[]
-  >([]);
+
+export default function ChatMessage({ chatMessageList }: chatMessageProps) {
+  const [chatIndex, setChatIndex] = useState(0);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    if (playerList.length === 0) return;
-    getGameChat(gameData._id, gameData.phrase, gameData.round).then((res) => {
-      const groupByPhrase = res.reduce((acc, item) => {
-        const key = item.playerId.toString();
-        if (!acc[key]) {
-          acc[key] = [];
-        }
-        if (acc[key].length <= item.phrase) {
-          acc[key][item.phrase] = {
-            reasoning: "",
-            content: "",
-            phrase: item.phrase,
-          };
-        }
-        if (item.type === 1) {
-          acc[key][item.phrase].content = item.content;
-        } else if (item.type === 2) {
-          acc[key][item.phrase].reasoning = item.content;
-        }
-        return acc;
-      }, {} as { [key: string]: { reasoning: string; content: string; phrase: number }[] });
-      const list = playerList.map((item) => {
-        return {
-          ...item,
-          phraseList: groupByPhrase[item._id.toString()] || [],
-        };
-      });
-      setAiList(list);
-    });
-  }, [playerList, gameData._id, gameData.phrase, gameData.round]);
-  const socketByAiList = (socketData: {
-    playerId: number;
-    message: {
-      content: string;
-      reasoning?: string;
-    };
-  }) => {
-    setAiList((list) => {
-      const newList = [...list];
-      newList.forEach((item) => {
-        if (item._id === socketData.playerId) {
-          item.phraseList?.push({
-            content: socketData.message.content,
-            reasoning: socketData.message.reasoning || "",
-            phrase: item.phraseList.length || 0,
-          });
-        }
-      });
-      return newList;
+    console.log("chatIndex:", chatIndex);
+    console.log("chatMessageList:", chatMessageList);
+    scrollToBottom();
+  }, [chatIndex, chatMessageList.length]);
+
+  const scrollToBottom = () => {
+    if (!messagesEndRef.current) return;
+    const container = messagesEndRef.current;
+    container.scrollTo({
+      top: container.scrollHeight,
+      behavior: "smooth",
     });
   };
-  useEffect(() => {
-    const handleImposters = (res: string) => {
-      const socketData = JSON.parse(res);
-      console.log(socketData);
-      socketByAiList(socketData);
-    };
-
-    socket.on("imposters", handleImposters);
-
-    return () => {
-      socket.off("imposters", handleImposters);
-    };
-  }, [socketByAiList]);
+  const chatMessage = useMemo(() => {
+    return chatMessageList.slice(0, chatIndex + 1);
+  }, [chatIndex, chatMessageList]);
+  const getTitleColor = (playerId: number) => {
+    switch (playerId) {
+      case 1:
+        return "#E5431A";
+      case 2:
+        return "#DFB600";
+      case 3:
+        return "#00DF08";
+      case 4:
+        return "#13BFB0";
+      case 5:
+        return "#9310BF";
+      case 9999:
+        return "#D7C972";
+      case 9998:
+        return "#E5431A";
+      default:
+        return "#E5431A";
+    }
+  };
+  const getBg = (playerId: number) => {
+    switch (playerId) {
+      case 1:
+        return "#280000";
+      case 2:
+        return "#342200";
+      case 3:
+        return "#274800";
+      case 4:
+        return "#003530";
+      case 5:
+        return "#1C0032";
+      default:
+        return "#0F0F0F";
+    }
+  };
 
   return (
-    <div className="mt-7 space-y-6 h-[calc(100vh-380px)] overflow-y-auto custom-scrollbar">
-      {aiList.map((item) => {
+    <div
+      ref={messagesEndRef}
+      className="mt-7 space-y-6 h-[calc(100vh-390px)] overflow-y-auto custom-scrollbar"
+    >
+      {chatMessage.map((item, index) => {
         return (
-          <div className="flex gap-x-4 " key={item._id}>
-            <div>
+          <div className="flex gap-x-4 " key={index}>
+            {[9999, 9998].includes(item.playerId) ? (
+              <div className="w-[60px]" />
+            ) : (
               <img
                 className="w-[60px] h-[60px] rounded-sm"
                 src={item.img || "/img/ai.png"}
                 alt=""
               />
-            </div>
-            <div className="rounded-lg bg-[#121212] p-4 flex-1 border-[1px] border-[#504E4E] space-y-10">
-              {item.phraseList?.map((ite) => {
-                return (
-                  <div key={ite.phrase}>
-                    <p className=" text-sm text-[#acacac]">
-                      {"<"}
-                      <span className="text-[#e5431a]">{item.model}</span>
-                      {` #${item.name} #ROUND_${ite.phrase} />`}
-                    </p>
-                    <ChatMessageItem
-                      content={ite.content}
-                      reasoning={ite.reasoning}
-                    />
-                  </div>
-                );
-              })}
-              {item.phraseList?.length === 0 && (
-                <RotateRightIcon className="animate-spin" />
-              )}
-            </div>
+            )}
+            {[9999, 9998].includes(item.playerId) ? (
+              <div
+                className="rounded-lg p-4 flex-1"
+                style={{
+                  background: getBg(item.playerId),
+                  color: getTitleColor(item.playerId),
+                }}
+              >
+                {item.content && (
+                  <Typewriter
+                    text={item.content}
+                    onComplete={() => {
+                      setChatIndex(index + 1);
+                    }}
+                  />
+                )}
+              </div>
+            ) : (
+              <div
+                className="rounded-lg p-4 flex-1"
+                style={{ background: getBg(item.playerId) }}
+              >
+                <p className=" text-sm mb-2 text-[#acacac]">
+                  {"<"}
+                  <span style={{ color: getTitleColor(item.playerId) }}>
+                    {item.name}
+                  </span>
+                  {` ${dayjs(item.time).format("HH:mm")} />`}
+                </p>
+                <ChatMessageItem
+                  content={item.content}
+                  reasoning={item.reasoning}
+                  playerId={item.playerId}
+                  onComplete={() => {
+                    setChatIndex(index + 1);
+                  }}
+                />
+              </div>
+            )}
           </div>
         );
       })}

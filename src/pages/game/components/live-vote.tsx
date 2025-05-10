@@ -10,8 +10,13 @@ import { toast } from "sonner";
 type liveVoteProps = {
   gameData: GameListItem;
   playerList: PlayerListItem[];
+  isVoting: boolean;
 };
-export default function LiveVote({ gameData, playerList }: liveVoteProps) {
+export default function LiveVote({
+  gameData,
+  playerList,
+  isVoting,
+}: liveVoteProps) {
   const [voteId, setVoteId] = useState<number>();
   const { primaryWallet } = useDynamicContext();
   const [_, setVoteInfo] = useState<VoteInfo | null>(null);
@@ -29,25 +34,41 @@ export default function LiveVote({ gameData, playerList }: liveVoteProps) {
       return;
     }
     setVoteLoading(true);
-    const res = await submitVote(
-      primaryWallet?.address,
-      gameData._id,
-      voteId || 0
-    );
-    if (res.data.result) {
-      toast.success("Vote Success");
-    } else {
-      toast.error(res.msg);
+    try {
+      const signature = await primaryWallet.signMessage(Date.now().toString());
+      if (signature) {
+        const res = await submitVote(
+          primaryWallet?.address,
+          gameData._id,
+          voteId || 0
+        );
+        if (res.data.result) {
+          toast.success("Vote Success");
+          setVoteId(undefined);
+        } else {
+          toast.error(res.msg);
+        }
+      }
+    } catch (e) {
+      console.error("e", e);
+    } finally {
+      setVoteLoading(false);
     }
-    setVoteLoading(false);
   };
   return (
     <div className="bg-linear-to-r from-[#0C0C0C] to-[#171717] rounded-[27px] p-7 mt-7">
-      <div className="bg-[#1A1A1A] rounded-2xl p-3 mb-5">
-        <p className="font-bold text-3xl">Live Vote</p>
-        <p className="text-[#ACACAC]">
-          GAME - {numberToRoman(Number(gameData._id))}
-        </p>
+      <div className="bg-[#1A1A1A] rounded-2xl p-3 mb-5 flex justify-between items-center">
+        <div>
+          <p className="font-bold text-3xl">Live Vote</p>
+          <p className="text-[#ACACAC]">
+            GAME - {numberToRoman(Number(gameData._id))}
+          </p>
+        </div>
+        <img
+          src={isVoting ? "/img/voteNotLock.png" : "/img/voteLock.png"}
+          className="w-6 h-7"
+          alt="lock"
+        />
       </div>
       <div className="space-y-2">
         {playerList.map((item) => {
@@ -56,16 +77,25 @@ export default function LiveVote({ gameData, playerList }: liveVoteProps) {
               className={cn(
                 "bg-[#1A1A1A] rounded-2xl p-3 flex items-center w-full",
                 item.status === 1 ? "cursor-pointer" : "cursor-not-allowed",
+                item.status === 1 && "bg-[#132300]",
                 item._id === voteId
                   ? "border-[1px] border-[#8BE421]"
                   : "border-[1px] border-[rgba(0,0,0,0)]"
               )}
               key={item._id}
               onClick={() => {
+                if (!isVoting) {
+                  toast.error("It has not yet reached the voting stage.");
+                  return;
+                }
                 if (item.status !== 1) {
                   return;
                 }
-                setVoteId(item._id);
+                if (voteId === item._id) {
+                  setVoteId(undefined);
+                } else {
+                  setVoteId(item._id);
+                }
               }}
             >
               <img className="w-9 h-9" src={item.img || "/img/ai.png"} alt="" />
@@ -111,11 +141,11 @@ export default function LiveVote({ gameData, playerList }: liveVoteProps) {
           textTransform: "none",
           borderRadius: 2,
           border: "1px solid #ACACAC",
-          backgroundColor: voteId ? "#8BE421" : "#0C0C0C",
-          color: voteId ? "#000000" : "#FFFFFF",
+          backgroundColor: "#0C0C0C",
+          color: "#FFFFFF",
           height: "48px",
           "&:hover": {
-            backgroundColor: voteId ? "#63A11A" : "#0C0C0C",
+            backgroundColor: "#0C0C0C",
             opacity: 0.8,
           },
           "&.Mui-disabled": {
