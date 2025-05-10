@@ -115,7 +115,7 @@ export default function GamePage() {
         });
         setPlayerList((playerList) => {
           return playerList.map((player) => {
-            if (player._id === socketSystem?.object?.playerId) {
+            if (player._id === socketSystem?.object?._id) {
               return {
                 ...player,
                 status: socketSystem?.object?.status,
