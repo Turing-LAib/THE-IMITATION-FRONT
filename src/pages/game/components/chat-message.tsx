@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Markdown from "react-markdown";
 import { BASE_URL } from "@/constants/config";
+import RotateRightIcon from "@mui/icons-material/RotateRight";
 type chatMessageProps = {
   chatMessageList: (GameChatResponse & {
     name: string;
@@ -13,6 +14,7 @@ type chatMessageProps = {
     isSocket: boolean;
     model: string;
   })[];
+  isSpin: boolean;
 };
 const ChatMessageItem = ({
   content,
@@ -87,7 +89,10 @@ const ChatMessageItem = ({
   );
 };
 
-export default function ChatMessage({ chatMessageList }: chatMessageProps) {
+export default function ChatMessage({
+  chatMessageList,
+  isSpin,
+}: chatMessageProps) {
   const [chatIndex, setChatIndex] = useState<number>(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -216,6 +221,7 @@ export default function ChatMessage({ chatMessageList }: chatMessageProps) {
           </div>
         );
       })}
+      {isSpin && <RotateRightIcon className="animate-spin" />}
     </div>
   );
 }

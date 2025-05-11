@@ -29,6 +29,7 @@ export default function GamePage() {
   const [systemMessage, setSystemMessage] = useState<GameSystemMessage[]>([]);
   const [isVoting, setIsVoting] = useState(false);
   const [isInit, setIsInit] = useState<boolean>(true);
+  const [isSpin, setIsSpin] = useState<boolean>(false);
   const [chatMessageList, setChatMessageList] = useState<
     (GameChatResponse & {
       name: string;
@@ -63,9 +64,11 @@ export default function GamePage() {
       systemMessage[systemMessage.length - 1]?.object?.period ===
         "Waiting For Voting"
     ) {
+      setIsSpin(false);
       setIsVoting(true);
     } else {
       setIsVoting(false);
+      setIsSpin(true);
     }
     if (systemMessage.length > 2) {
       setIsInit(false);
@@ -159,8 +162,10 @@ export default function GamePage() {
         socketSystem.type === 1 &&
         socketSystem?.object?.period === "Waiting For Voting"
       ) {
+        setIsSpin(false);
         setIsVoting(true);
       } else {
+        setIsSpin(true);
         setIsVoting(false);
       }
       if (
@@ -215,7 +220,7 @@ export default function GamePage() {
                 isInit={isInit}
                 isVoting={isVoting}
               />
-              <ChatMessage chatMessageList={chatMessageList} />
+              <ChatMessage chatMessageList={chatMessageList} isSpin={isSpin} />
             </>
           )}
           {nowShowType === "rules" && <Rules />}
