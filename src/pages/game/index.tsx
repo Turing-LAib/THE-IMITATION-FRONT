@@ -57,6 +57,15 @@ export default function GamePage() {
     setPlayerList(playerlist);
     const systemMessage = await getGameSystemMessage(gamedata._id);
     setSystemMessage(systemMessage);
+    if (
+      systemMessage[systemMessage.length - 1]?.type === 1 &&
+      systemMessage[systemMessage.length - 1]?.object?.period ===
+        "Waiting For Voting"
+    ) {
+      setIsVoting(true);
+    } else {
+      setIsVoting(false);
+    }
     const gameChat = await getGameChat(gamedata._id, gamedata.phrase);
     setChatMessageList(
       gameChat.map((item) => {
