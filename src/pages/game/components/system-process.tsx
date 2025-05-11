@@ -75,7 +75,7 @@ export default function SystemProcess({
   };
   return (
     <div>
-      <div className="bg-[#1A1A1A] p-5 text-center rounded-full text-[#ACACAC]">
+      <div className="bg-[#1A1A1A] px-5 py-2 text-center rounded-full text-[#ACACAC]">
         {timeLeft.secs > 0 ? (
           <>
             <span>{">>> Confidential Security Protocol Activated in "}</span>

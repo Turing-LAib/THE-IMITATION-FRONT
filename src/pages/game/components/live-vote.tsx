@@ -100,7 +100,7 @@ export default function LiveVote({
               }}
             >
               <img
-                className="w-9 h-9"
+                className="w-9 h-9 rounded-sm"
                 src={item.img ? BASE_URL + item.img : "/img/ai.png"}
                 alt=""
               />
@@ -116,7 +116,7 @@ export default function LiveVote({
                     {item.status === 1 ? "ALIVE" : "DEAD"}
                   </span>
                 </p>
-                <p>{item.model}</p>
+                <p>{"[" + item.model + "]"}</p>
               </div>
               <div
                 className={cn(

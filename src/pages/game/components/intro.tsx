@@ -93,11 +93,22 @@ export default function Intro({ setNowShowType, gameData }: introProps) {
           },
         }}
       >
-        <video
-          src={`/video/game${gameData._id}Video.mp4`}
-          controls
-          className="w-[800px] block"
-        ></video>
+        {videoOpen && (
+          <video
+            src={`/video/game${gameData._id}Video.mp4`}
+            className="w-[800px] block"
+            autoPlay
+            muted
+            playsInline
+            ref={(el) => {
+              if (el && videoOpen) {
+                el.play().catch((error) => {
+                  console.error("autoPlay error", error);
+                });
+              }
+            }}
+          ></video>
+        )}
       </Dialog>
     </>
   );
