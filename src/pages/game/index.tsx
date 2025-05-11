@@ -220,7 +220,11 @@ export default function GamePage() {
                 isInit={isInit}
                 isVoting={isVoting}
               />
-              <ChatMessage chatMessageList={chatMessageList} isSpin={isSpin} />
+              <ChatMessage
+                chatMessageList={chatMessageList}
+                isSpin={isSpin}
+                isInit={isInit}
+              />
             </>
           )}
           {nowShowType === "rules" && <Rules />}

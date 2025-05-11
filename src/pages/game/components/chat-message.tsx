@@ -15,6 +15,7 @@ type chatMessageProps = {
     model: string;
   })[];
   isSpin: boolean;
+  isInit: boolean;
 };
 const ChatMessageItem = ({
   content,
@@ -92,6 +93,7 @@ const ChatMessageItem = ({
 export default function ChatMessage({
   chatMessageList,
   isSpin,
+  isInit,
 }: chatMessageProps) {
   const [chatIndex, setChatIndex] = useState<number>(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -221,7 +223,7 @@ export default function ChatMessage({
           </div>
         );
       })}
-      {isSpin && <RotateRightIcon className="animate-spin" />}
+      {isSpin && !isInit && <RotateRightIcon className="animate-spin" />}
     </div>
   );
 }
