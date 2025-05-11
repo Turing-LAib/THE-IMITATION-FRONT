@@ -151,7 +151,7 @@ export default function ChatMessage({ chatMessageList }: chatMessageProps) {
   return (
     <div
       ref={messagesEndRef}
-      className="mt-7 space-y-6 h-[calc(100vh-270px)] overflow-y-auto custom-scrollbar"
+      className="mt-3 space-y-6 h-[calc(100vh-250px)] overflow-y-auto custom-scrollbar"
     >
       {chatMessage.map((item, index) => {
         return (
