@@ -14,8 +14,9 @@ type chatMessageProps = {
     isSocket: boolean;
     model: string;
   })[];
-  isSpin: boolean;
+  isVoting: boolean;
   isInit: boolean;
+  isOver: boolean;
 };
 const ChatMessageItem = ({
   content,
@@ -92,8 +93,9 @@ const ChatMessageItem = ({
 
 export default function ChatMessage({
   chatMessageList,
-  isSpin,
+  isVoting,
   isInit,
+  isOver,
 }: chatMessageProps) {
   const [chatIndex, setChatIndex] = useState<number>(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -223,7 +225,9 @@ export default function ChatMessage({
           </div>
         );
       })}
-      {isSpin && !isInit && <RotateRightIcon className="animate-spin" />}
+      {!isVoting && !isInit && !isOver ? (
+        <RotateRightIcon className="animate-spin" />
+      ) : null}
     </div>
   );
 }

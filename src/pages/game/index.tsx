@@ -29,7 +29,7 @@ export default function GamePage() {
   const [systemMessage, setSystemMessage] = useState<GameSystemMessage[]>([]);
   const [isVoting, setIsVoting] = useState(false);
   const [isInit, setIsInit] = useState<boolean>(true);
-  const [isSpin, setIsSpin] = useState<boolean>(false);
+  const [isOver, setIsOver] = useState<boolean>(false);
   const [chatMessageList, setChatMessageList] = useState<
     (GameChatResponse & {
       name: string;
@@ -64,14 +64,20 @@ export default function GamePage() {
       systemMessage[systemMessage.length - 1]?.object?.period ===
         "Waiting For Voting"
     ) {
-      setIsSpin(false);
       setIsVoting(true);
     } else {
       setIsVoting(false);
-      setIsSpin(true);
     }
     if (systemMessage.length > 2) {
       setIsInit(false);
+    }
+    if (
+      systemMessage[systemMessage.length - 1]?.type === 1 &&
+      String(systemMessage[systemMessage.length - 1]?.object?.period)?.includes(
+        "Game over"
+      )
+    ) {
+      setIsOver(true);
     }
     const gameChat = await getGameChat(gamedata._id, gamedata.phrase);
     setChatMessageList(
@@ -162,11 +168,15 @@ export default function GamePage() {
         socketSystem.type === 1 &&
         socketSystem?.object?.period === "Waiting For Voting"
       ) {
-        setIsSpin(false);
         setIsVoting(true);
       } else {
-        setIsSpin(true);
         setIsVoting(false);
+      }
+      if (
+        socketSystem?.type === 1 &&
+        socketSystem?.object?.period?.includes("Game over")
+      ) {
+        setIsOver(true);
       }
       if (
         socketSystem.type === 4 &&
@@ -207,7 +217,9 @@ export default function GamePage() {
           <Intro
             setNowShowType={(type: "rules" | "lore" | "home") => {
               setNowShowType(type);
-              init();
+              if (type === "home") {
+                init();
+              }
             }}
             gameData={gameData}
           />
@@ -228,8 +240,9 @@ export default function GamePage() {
               />
               <ChatMessage
                 chatMessageList={chatMessageList}
-                isSpin={isSpin}
                 isInit={isInit}
+                isVoting={isVoting}
+                isOver={isOver}
               />
             </>
           )}
