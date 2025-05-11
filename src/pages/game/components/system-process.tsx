@@ -86,7 +86,7 @@ export default function SystemProcess({
           <span>{"Voting Phase Activated"}</span>
         )}
       </div>
-      <div className="h-[120px] mt-5 mb-5 overflow-y-auto custom-scrollbar terminal-style">
+      <div className="h-[90px] mt-2 mb-2 overflow-y-auto custom-scrollbar terminal-style">
         {systemMessage.map((item, index) => {
           return (
             <div key={index} className=" text-lg">
@@ -142,7 +142,7 @@ export default function SystemProcess({
         })}
         <div ref={messagesEndRef} />
       </div>
-      <div className="mt-7 bg-[#504E4E] w-full overflow-x-hidden h-2 relative text-2xl text-black rounded-lg">
+      <div className=" bg-[#504E4E] w-full overflow-x-hidden h-2 relative text-2xl text-black rounded-lg">
         <div
           className="bg-[#8BE421] h-full w-full transition-all duration-1000 ease-in-out"
           style={{

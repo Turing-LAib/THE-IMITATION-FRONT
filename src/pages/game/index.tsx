@@ -31,6 +31,7 @@ export default function GamePage() {
   const [chatMessageList, setChatMessageList] = useState<
     (GameChatResponse & {
       name: string;
+      model: string;
       img: string;
       isSocket: boolean;
     })[]
@@ -69,14 +70,14 @@ export default function GamePage() {
         } else if (item.playerId === 9998) {
           content = (item.content as any)?.name + " Die";
         }
+        const player = playerlist.find(
+          (player) => player._id === item.playerId
+        );
         return {
           ...item,
-          name:
-            playerlist.find((player) => player._id === item.playerId)?.name ||
-            "",
-          img:
-            playerlist.find((player) => player._id === item.playerId)?.img ||
-            "",
+          name: player?.name || "",
+          img: player?.img || "",
+          model: player?.model || "",
           isSocket: false,
           content: content,
         };
@@ -110,6 +111,7 @@ export default function GamePage() {
               img: "",
               time: "",
               isSocket: true,
+              model: "",
             },
           ];
         });
@@ -125,6 +127,7 @@ export default function GamePage() {
               img: "",
               time: "",
               isSocket: true,
+              model: "",
             },
           ];
         });
@@ -155,16 +158,16 @@ export default function GamePage() {
       const socketChat = JSON.parse(res);
       console.log("chat", socketChat);
       setChatMessageList((chatMessageList) => {
+        const player = playerList.find(
+          (player) => player._id === socketChat.playerId
+        );
         const newMessage = {
           content: socketChat.message.content,
           reasoning: socketChat.message?.reasoning || "",
           playerId: socketChat.playerId,
-          name:
-            playerList.find((player) => player._id === socketChat.playerId)
-              ?.name || "",
-          img:
-            playerList.find((player) => player._id === socketChat.playerId)
-              ?.img || "",
+          name: player?.name || "",
+          img: player?.img || "",
+          model: player?.model || "",
           time: socketChat.time,
           isSocket: true,
         };
@@ -176,7 +179,7 @@ export default function GamePage() {
   return (
     <Layout>
       <div className="text-white grid grid-cols-4 gap-8">
-        <div className="col-span-1 h-[calc(100vh-130px)] overflow-auto hide-scrollbar">
+        <div className="col-span-1 h-[calc(100vh-90px)] overflow-auto hide-scrollbar">
           <Intro setNowShowType={setNowShowType} gameData={gameData} />
           <LiveVote
             gameData={gameData}

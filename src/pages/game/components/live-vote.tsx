@@ -1,3 +1,4 @@
+import { BASE_URL } from "@/constants/config";
 import { GameListItem } from "@/services/getGame";
 import { PlayerListItem } from "@/services/getPlayer";
 import { getVoteInfo, submitVote, VoteInfo } from "@/services/vote";
@@ -57,7 +58,7 @@ export default function LiveVote({
   };
   return (
     <div className="bg-linear-to-r from-[#0C0C0C] to-[#171717] rounded-[27px] p-7 mt-7">
-      <div className="bg-[#1A1A1A] rounded-2xl p-3 mb-5 flex justify-between items-center">
+      <div className="bg-[#1A1A1A] rounded-2xl p-3 mb-5 flex justify-between items-center font-['Fustat']">
         <div>
           <p className="font-bold text-3xl">Live Vote</p>
           <p className="text-[#ACACAC]">
@@ -98,7 +99,11 @@ export default function LiveVote({
                 }
               }}
             >
-              <img className="w-9 h-9" src={item.img || "/img/ai.png"} alt="" />
+              <img
+                className="w-9 h-9"
+                src={item.img ? BASE_URL + item.img : "/img/ai.png"}
+                alt=""
+              />
               <div className="ml-2 text-[#ACACAC] text-sm">
                 <p>
                   {item.name}{" "}

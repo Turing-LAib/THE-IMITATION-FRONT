@@ -5,11 +5,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import dayjs from "dayjs";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Markdown from "react-markdown";
+import { BASE_URL } from "@/constants/config";
 type chatMessageProps = {
   chatMessageList: (GameChatResponse & {
     name: string;
     img: string;
     isSocket: boolean;
+    model: string;
   })[];
 };
 const ChatMessageItem = ({
@@ -71,13 +73,13 @@ const ChatMessageItem = ({
       {isSocket ? (
         isReasoning && (
           <div className="mt-4">
-            <p className="text-[#63a11a] mb-4">{"<Message>"}</p>
+            <p className="text-white mb-4">{"<Message>"}</p>
             <Typewriter text={content} onComplete={onComplete} />
           </div>
         )
       ) : (
         <div className="mt-4">
-          <p className="text-[#63a11a] mb-4">{"<Message>"}</p>
+          <p className="text-white mb-4">{"<Message>"}</p>
           <Markdown>{content}</Markdown>
         </div>
       )}
@@ -149,7 +151,7 @@ export default function ChatMessage({ chatMessageList }: chatMessageProps) {
   return (
     <div
       ref={messagesEndRef}
-      className="mt-7 space-y-6 h-[calc(100vh-390px)] overflow-y-auto custom-scrollbar"
+      className="mt-7 space-y-6 h-[calc(100vh-290px)] overflow-y-auto custom-scrollbar"
     >
       {chatMessage.map((item, index) => {
         return (
@@ -159,7 +161,7 @@ export default function ChatMessage({ chatMessageList }: chatMessageProps) {
             ) : (
               <img
                 className="w-10 h-10 rounded-sm"
-                src={item.img || "/img/ai.png"}
+                src={item.img ? BASE_URL + item.img : "/img/ai.png"}
                 alt=""
               />
             )}
@@ -188,10 +190,15 @@ export default function ChatMessage({ chatMessageList }: chatMessageProps) {
                 className="rounded-lg p-4 flex-1"
                 style={{ background: getBg(item.playerId) }}
               >
-                <p className=" text-sm mb-2 text-[#acacac]">
+                <p className=" text-sm mb-2 text-white">
                   {"<"}
-                  <span style={{ color: getTitleColor(item.playerId) }}>
-                    {item.name}
+
+                  {item.name}
+                  <span
+                    className="mx-2"
+                    style={{ color: getTitleColor(item.playerId) }}
+                  >
+                    {item.model}
                   </span>
                   {` ${dayjs(item.time).format("HH:mm")} />`}
                 </p>
