@@ -31,7 +31,7 @@ export const getPlayerList = async (
   gameId: number
 ): Promise<PlayerListItem[]> => {
   try {
-    const response = await fetch(`${BASE_URL}api/player/list?gid=${gameId}`, {
+    const response = await fetch(`${BASE_URL}/api/player/list?gid=${gameId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -13,7 +13,7 @@ export const getVoteInfo = async (
 ): Promise<VoteInfo> => {
   try {
     const response = await fetch(
-      `${BASE_URL}api/game/vote?address=${address}&gameId=${gameId}`,
+      `${BASE_URL}/api/game/vote?address=${address}&gameId=${gameId}`,
       {
         method: "GET",
         headers: {
@@ -49,7 +49,7 @@ export const submitVote = async (
   playerId: number
 ): Promise<VoteResponse> => {
   try {
-    const response = await fetch(`${BASE_URL}api/game/vote`, {
+    const response = await fetch(`${BASE_URL}/api/game/vote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

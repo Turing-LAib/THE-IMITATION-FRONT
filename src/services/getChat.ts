@@ -17,7 +17,7 @@ export const getGameChat = async (
 ): Promise<GameChatResponse[]> => {
   try {
     const response = await fetch(
-      `${BASE_URL}api/game/chat?gid=${gameId}&phrase=${phrase}`,
+      `${BASE_URL}/api/game/chat?gid=${gameId}&phrase=${phrase}`,
       {
         method: "GET",
         headers: {
@@ -50,7 +50,7 @@ export const getGameSystemMessage = async (
   gameId: number
 ): Promise<GameSystemMessage[]> => {
   try {
-    const response = await fetch(`${BASE_URL}api/game/sysmsg?gid=${gameId}`, {
+    const response = await fetch(`${BASE_URL}/api/game/sysmsg?gid=${gameId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

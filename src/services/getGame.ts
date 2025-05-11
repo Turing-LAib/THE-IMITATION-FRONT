@@ -26,7 +26,7 @@ export const defaultGameItem: GameListItem = {
 // Get game list
 export const getGameList = async (): Promise<GameListItem[]> => {
   try {
-    const response = await fetch(`${BASE_URL}api/game/list`, {
+    const response = await fetch(`${BASE_URL}/api/game/list`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export const getGameList = async (): Promise<GameListItem[]> => {
 // Get game
 export const getGameById = async (id: number): Promise<GameListItem> => {
   try {
-    const response = await fetch(`${BASE_URL}api/game/${id}`, {
+    const response = await fetch(`${BASE_URL}/api/game/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
