@@ -32,6 +32,7 @@ export default function GamePage() {
     (GameChatResponse & {
       name: string;
       img: string;
+      isSocket: boolean;
     })[]
   >([]);
   const [nowShowType, setNowShowType] = useState<"rules" | "lore" | "home">(
@@ -58,6 +59,16 @@ export default function GamePage() {
     const gameChat = await getGameChat(gamedata._id, gamedata.phrase);
     setChatMessageList(
       gameChat.map((item) => {
+        let content = item.content;
+        if (item.playerId === 9999) {
+          content = Object.entries(item.content).reduce((acc, [key, value]) => {
+            const name =
+              playerList?.find((ite) => ite._id === Number(key))?.name || key;
+            return acc + name + " received " + value + " votes.\n";
+          }, "");
+        } else if (item.playerId === 9998) {
+          content = (item.content as any)?.name + " Die";
+        }
         return {
           ...item,
           name:
@@ -66,6 +77,8 @@ export default function GamePage() {
           img:
             playerlist.find((player) => player._id === item.playerId)?.img ||
             "",
+          isSocket: false,
+          content: content,
         };
       })
     );
@@ -96,6 +109,7 @@ export default function GamePage() {
               name: "",
               img: "",
               time: "",
+              isSocket: true,
             },
           ];
         });
@@ -110,6 +124,7 @@ export default function GamePage() {
               name: "",
               img: "",
               time: "",
+              isSocket: true,
             },
           ];
         });
@@ -151,6 +166,7 @@ export default function GamePage() {
             playerList.find((player) => player._id === socketChat.playerId)
               ?.img || "",
           time: socketChat.time,
+          isSocket: true,
         };
         return [...chatMessageList, newMessage];
       });

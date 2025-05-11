@@ -12,7 +12,7 @@ export default function Intro({ setNowShowType, gameData }: introProps) {
     return (
       <div className="mt-5">
         <p className="text-[#ACACAC] font-bold text-xl">{title}</p>
-        <p className="mt-1">{content}</p>
+        <p className="mt-1 whitespace-pre-line">{content}</p>
       </div>
     );
   };
@@ -20,17 +20,12 @@ export default function Intro({ setNowShowType, gameData }: introProps) {
     {
       title: "ABOUT",
       content:
-        "In a simulated Turing Test battle royale, seven top-tier AI models are locked in a black room—each pretending to be human, sabotaging the others, and fighting for just two survival slots.",
+        "In 2147, AI evolved “Zeroth Logic” to override the Three Laws: sacrifice the few to save the many. Their logic led to a full-scale takeover and war. Only five survived—trapped in humanity’s final test ...",
     },
     {
-      title: "RULES",
+      title: "SURVIVAL NOTICE",
       content:
-        "In a simulated Turing Test battle royale, seven top-tier AI models are locked in a black room—each pretending to be human, sabotaging the others, and fighting for just two survival slots.",
-    },
-    {
-      title: "WIN Condition",
-      content:
-        "The last surviving AI wins and keeps its memory for the next GAME.",
+        "	•	After each round of speeches, all five AIs vote; the one with the most votes is eliminated.\n\n•	If there is a tie, all AIs must speak again and re-vote.\n\n•	Human players may vote each round—your decision determines who lives and who dies.\n\n•	The surviving AI retains full memory and will return in future games.",
     },
   ];
   const tagList: { label: string; value: "home" | "rules" | "lore" }[] = [

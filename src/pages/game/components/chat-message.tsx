@@ -4,10 +4,12 @@ import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import dayjs from "dayjs";
 import { useEffect, useMemo, useRef, useState } from "react";
+import Markdown from "react-markdown";
 type chatMessageProps = {
   chatMessageList: (GameChatResponse & {
     name: string;
     img: string;
+    isSocket: boolean;
   })[];
 };
 const ChatMessageItem = ({
@@ -15,11 +17,13 @@ const ChatMessageItem = ({
   reasoning,
   playerId,
   onComplete,
+  isSocket,
 }: {
   reasoning: string;
   content: string;
   playerId: number;
   onComplete: () => void;
+  isSocket: boolean;
 }) => {
   const [isReasoning, setIsReasoning] = useState(false);
   const getReasoningBg = (playerId: number) => {
@@ -54,16 +58,27 @@ const ChatMessageItem = ({
           <p>{"<Reasoning>"}</p>
         </AccordionSummary>
         <AccordionDetails>
-          <Typewriter
-            text={reasoning || "This model is not supported"}
-            onComplete={() => setIsReasoning(true)}
-          />
+          {isSocket ? (
+            <Typewriter
+              text={reasoning || "This model is not supported"}
+              onComplete={() => setIsReasoning(true)}
+            />
+          ) : (
+            <Markdown>{reasoning || "This model is not supported"}</Markdown>
+          )}
         </AccordionDetails>
       </Accordion>
-      {isReasoning && (
+      {isSocket ? (
+        isReasoning && (
+          <div className="mt-4">
+            <p className="text-[#63a11a] mb-4">{"<Message>"}</p>
+            <Typewriter text={content} onComplete={onComplete} />
+          </div>
+        )
+      ) : (
         <div className="mt-4">
           <p className="text-[#63a11a] mb-4">{"<Message>"}</p>
-          <Typewriter text={content} onComplete={onComplete} />
+          <Markdown>{content}</Markdown>
         </div>
       )}
     </>
@@ -71,12 +86,15 @@ const ChatMessageItem = ({
 };
 
 export default function ChatMessage({ chatMessageList }: chatMessageProps) {
-  const [chatIndex, setChatIndex] = useState(0);
+  const [chatIndex, setChatIndex] = useState<number>(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     console.log("chatIndex:", chatIndex);
     console.log("chatMessageList:", chatMessageList);
+    if (chatMessageList.filter((item) => item.isSocket)?.length === 0) {
+      setChatIndex(chatMessageList.length);
+    }
     scrollToBottom();
   }, [chatIndex, chatMessageList.length]);
 
@@ -137,10 +155,10 @@ export default function ChatMessage({ chatMessageList }: chatMessageProps) {
         return (
           <div className="flex gap-x-4 " key={index}>
             {[9999, 9998].includes(item.playerId) ? (
-              <div className="w-[60px]" />
+              <div className="w-10" />
             ) : (
               <img
-                className="w-[60px] h-[60px] rounded-sm"
+                className="w-10 h-10 rounded-sm"
                 src={item.img || "/img/ai.png"}
                 alt=""
               />
@@ -153,14 +171,17 @@ export default function ChatMessage({ chatMessageList }: chatMessageProps) {
                   color: getTitleColor(item.playerId),
                 }}
               >
-                {item.content && (
-                  <Typewriter
-                    text={item.content}
-                    onComplete={() => {
-                      setChatIndex(index + 1);
-                    }}
-                  />
-                )}
+                {item.content &&
+                  (item.isSocket ? (
+                    <Typewriter
+                      text={item.content}
+                      onComplete={() => {
+                        setChatIndex(index + 1);
+                      }}
+                    />
+                  ) : (
+                    <Markdown>{item.content}</Markdown>
+                  ))}
               </div>
             ) : (
               <div
@@ -175,6 +196,7 @@ export default function ChatMessage({ chatMessageList }: chatMessageProps) {
                   {` ${dayjs(item.time).format("HH:mm")} />`}
                 </p>
                 <ChatMessageItem
+                  isSocket={item.isSocket}
                   content={item.content}
                   reasoning={item.reasoning}
                   playerId={item.playerId}
