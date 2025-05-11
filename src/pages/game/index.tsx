@@ -204,7 +204,13 @@ export default function GamePage() {
     <Layout>
       <div className="text-white grid grid-cols-4 gap-8">
         <div className="col-span-1 h-[calc(100vh-90px)] overflow-auto hide-scrollbar">
-          <Intro setNowShowType={setNowShowType} gameData={gameData} />
+          <Intro
+            setNowShowType={(type: "rules" | "lore" | "home") => {
+              setNowShowType(type);
+              init();
+            }}
+            gameData={gameData}
+          />
           <LiveVote
             gameData={gameData}
             playerList={playerList}

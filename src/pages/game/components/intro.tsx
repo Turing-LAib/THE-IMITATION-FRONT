@@ -1,9 +1,9 @@
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import { GameListItem } from "@/services/getGame";
 import { numberToRoman } from "@/utils/format";
 type introProps = {
-  setNowShowType: (type: SetStateAction<"home" | "rules" | "lore">) => void;
+  setNowShowType: (type: "rules" | "lore" | "home") => void;
   gameData: GameListItem;
 };
 export default function Intro({ setNowShowType, gameData }: introProps) {
