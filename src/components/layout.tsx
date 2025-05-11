@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./header";
 import HomeTextAnimation from "./home-text-animation";
 import { Link } from "react-router";
