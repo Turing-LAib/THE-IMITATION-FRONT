@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
     </div>
   ) : (
-    <div className="w-screen h-screen flex bg-linear-to-r from-[#0C0C0C] to-[#171717] relative">
+    <div className="w-screen h-screen flex bg-linear-to-r from-[#0C0C0C] to-[#171717]">
       <div className="m-auto">
         <div className="flex flex-col items-center font-light relative text-white">
           <div className="relative w-[158px] h-[158px] group cursor-pointer">
@@ -46,22 +46,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <img className="w-8 h-8 mr-1" src="/svg/mobileHome.svg" alt="" />
           <span className="text-[#D0D0D0]">Desktop access required</span>
         </div>
-      </div>
-      <div className="absolute bottom-8 flex justify-center gap-x-5 w-full">
-        <Link
-          to="https://github.com/Turing-LAib"
-          className="hover:opacity-70 transition-all w-6 h-6"
-          target="_blank"
-        >
-          <img src="/svg/github.svg" alt="" />
-        </Link>
-        <Link
-          to="https://x.com/Theimitationai"
-          className="hover:opacity-70 transition-all w-6 h-6"
-          target="_blank"
-        >
-          <img src="/svg/twitter.svg" alt="" />
-        </Link>
+        <div className="mt-4 flex justify-center gap-x-5 w-full">
+          <Link
+            to="https://github.com/Turing-LAib"
+            className="hover:opacity-70 transition-all w-6 h-6"
+            target="_blank"
+          >
+            <img src="/svg/github.svg" alt="" />
+          </Link>
+          <Link
+            to="https://x.com/Theimitationai"
+            className="hover:opacity-70 transition-all w-6 h-6"
+            target="_blank"
+          >
+            <img src="/svg/twitter.svg" alt="" />
+          </Link>
+        </div>
       </div>
     </div>
   );

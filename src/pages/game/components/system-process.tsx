@@ -5,10 +5,14 @@ import { PlayerListItem } from "@/services/getPlayer";
 type SystemProcessProps = {
   systemMessage: GameSystemMessage[];
   playerList: PlayerListItem[];
+  isInit: boolean;
+  isVoting: boolean;
 };
 export default function SystemProcess({
   systemMessage,
   playerList,
+  isInit,
+  isVoting,
 }: SystemProcessProps) {
   const [timeLeft, setTimeLeft] = useState<{ time: string; secs: number }>({
     time: "",
@@ -75,17 +79,25 @@ export default function SystemProcess({
   };
   return (
     <div>
-      <div className="bg-[#1A1A1A] px-5 py-2 text-center rounded-full text-[#ACACAC]">
-        {timeLeft.secs > 0 ? (
-          <>
-            <span>{">>> Confidential Security Protocol Activated in "}</span>
-            <span className="text-[#8be421] font-bold">{timeLeft.time}</span>
-            <span>{" <<<"}</span>
-          </>
-        ) : (
-          <span>{"Voting Phase Activated"}</span>
-        )}
-      </div>
+      {isInit ? (
+        <div className="bg-[#1A1A1A] px-5 py-2 text-center rounded-full text-[#ACACAC]">
+          <span>{">>>Livestream Protocol Activated in "}</span>
+          <span className="text-[#8be421] font-bold">{timeLeft.time}</span>
+          <span>{" <<<"}</span>
+        </div>
+      ) : isVoting ? (
+        <div className="bg-[#8BE421] px-5 py-2 text-center rounded-full text-black">
+          <span>{">>> Voting Phase Activated,ends in "}</span>
+          <span className=" font-bold">
+            {timeLeft.time.replace(/\d+ DAYS : \d+ HOURS : /, "")}
+          </span>
+          <span>{" <<<"}</span>
+        </div>
+      ) : (
+        <div className="bg-[#1A1A1A] px-5 py-2 text-center rounded-full text-[#ACACAC]">
+          <span>{">>> Voting Phase Not Activated <<<"}</span>
+        </div>
+      )}
       <div className="h-[90px] mt-2 mb-2 overflow-y-auto custom-scrollbar terminal-style">
         {systemMessage.map((item, index) => {
           return (
@@ -99,7 +111,8 @@ export default function SystemProcess({
                 <p className="flex items-start terminal-line animate-fadeIn">
                   <span className=" mr-2">[System]</span>
                   <span className="text-[#63a11a]">
-                    Round {item.object.round} Interrogation Begins
+                    Round {item.object.phrase === 0 ? 1 : item.object.phrase}{" "}
+                    Interrogation Begins
                   </span>
                 </p>
               )}
@@ -132,7 +145,7 @@ export default function SystemProcess({
               {item.type === 2 && (
                 <p className="flex items-start terminal-line animate-fadeIn text-[#E5431A]">
                   <span className=" mr-2">[System]</span>
-                  <span>{item.object.name} Die</span>
+                  <span>{item.object.name} Dead</span>
                 </p>
               )}
               {item.type === 4 && (

@@ -28,6 +28,7 @@ export default function GamePage() {
   });
   const [systemMessage, setSystemMessage] = useState<GameSystemMessage[]>([]);
   const [isVoting, setIsVoting] = useState(false);
+  const [isInit, setIsInit] = useState<boolean>(true);
   const [chatMessageList, setChatMessageList] = useState<
     (GameChatResponse & {
       name: string;
@@ -66,6 +67,9 @@ export default function GamePage() {
     } else {
       setIsVoting(false);
     }
+    if (systemMessage.length > 2) {
+      setIsInit(false);
+    }
     const gameChat = await getGameChat(gamedata._id, gamedata.phrase);
     setChatMessageList(
       gameChat.map((item) => {
@@ -77,7 +81,7 @@ export default function GamePage() {
             return acc + name + " received " + value + " votes.\n";
           }, "");
         } else if (item.playerId === 9998) {
-          content = (item.content as any)?.name + " Die";
+          content = (item.content as any)?.name + " Dead";
         }
         const player = playerlist.find(
           (player) => player._id === item.playerId
@@ -130,7 +134,7 @@ export default function GamePage() {
             ...chatMessageList,
             {
               playerId: 9998,
-              content: socketSystem?.object?.name + " Die",
+              content: socketSystem?.object?.name + " Dead",
               reasoning: "",
               name: "",
               img: "",
@@ -158,6 +162,12 @@ export default function GamePage() {
         setIsVoting(true);
       } else {
         setIsVoting(false);
+      }
+      if (
+        socketSystem.type === 4 &&
+        socketSystem?.object?.content === "livestream protocol activated"
+      ) {
+        setIsInit(false);
       }
     },
     [playerList]
@@ -202,6 +212,8 @@ export default function GamePage() {
               <SystemProcess
                 playerList={playerList}
                 systemMessage={systemMessage as GameSystemMessage[]}
+                isInit={isInit}
+                isVoting={isVoting}
               />
               <ChatMessage chatMessageList={chatMessageList} />
             </>

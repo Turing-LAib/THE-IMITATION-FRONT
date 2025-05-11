@@ -44,7 +44,7 @@ export default function Home() {
                 <HomeTextAnimation className="text-5xl" text="TURING LAB" />
               </div>
             </div>
-            <div className="mt-20 grid grid-cols-4 gap-10">
+            <div className="mt-10 grid grid-cols-5 gap-10">
               {gameList.map((item) => {
                 return (
                   <GameItem
