@@ -11,6 +11,7 @@ export interface GameListItem {
   name: string;
   totalSecond: number;
   parase: number;
+  content?: string;
 }
 export const defaultGameItem: GameListItem = {
   _id: 1,

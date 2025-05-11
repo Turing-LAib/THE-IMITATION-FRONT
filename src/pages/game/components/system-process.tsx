@@ -29,7 +29,7 @@ export default function SystemProcess({
     console.log("systemMessage:", systemMessage);
     const updateTimer = () => {
       let time = "";
-      if (systemMessage[systemMessage.length - 1]?.type === 1) {
+      if ([1, 4].includes(systemMessage[systemMessage.length - 1]?.type)) {
         time = String(
           systemMessage[systemMessage.length - 1]?.object?.startTime || ""
         );
@@ -105,9 +105,7 @@ export default function SystemProcess({
               )}
               {item.type === 1 && (
                 <p className="flex items-start terminal-line animate-fadeIn">
-                  <span className=" mr-2">
-                    [System] [phase{item.object.phrase}]
-                  </span>
+                  <span className=" mr-2">[System]</span>
                   <span className="text-[#ff8e14]">{item.object.period}</span>
                 </p>
               )}
@@ -135,6 +133,11 @@ export default function SystemProcess({
                 <p className="flex items-start terminal-line animate-fadeIn text-[#E5431A]">
                   <span className=" mr-2">[System]</span>
                   <span>{item.object.name} Die</span>
+                </p>
+              )}
+              {item.type === 4 && (
+                <p className="flex items-start terminal-line animate-fadeIn text-[#9747FF]">
+                  <span>{String(item.object?.content || "")}</span>
                 </p>
               )}
             </div>

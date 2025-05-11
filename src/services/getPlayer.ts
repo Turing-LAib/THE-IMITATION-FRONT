@@ -12,6 +12,7 @@ export interface PlayerListItem {
   phrase: number;
   startTime: string;
   totalSecond: number;
+  content?: string;
 }
 
 export const defaultPlayerItem: PlayerListItem = {

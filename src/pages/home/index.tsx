@@ -22,7 +22,7 @@ export default function Home() {
         <LoadingVideo setIsOver={setIsOver} />
       ) : (
         <Laryout>
-          <div className="text-white pt-20">
+          <div className="text-white pt-20 pb-10 h-[calc(100vh-140px)] overflow-y-auto">
             <div className="flex flex-col items-center font-light relative">
               <div className="relative w-[270px] h-[270px] group cursor-pointer">
                 <img
