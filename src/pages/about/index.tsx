@@ -31,11 +31,9 @@ export default function AboutPage() {
               What are we really exploring?
             </h3>
 
-            <div className="mt-4 space-y-6">
+            <div className="mt-4 space-y-6 text-xl">
               <div>
-                <h4 className="text-lg font-medium">
-                  1. The Blind Spots of Human Cognition
-                </h4>
+                <p>1. The Blind Spots of Human Cognition</p>
                 <p className="">
                   By constructing a black-box arena where multiple AI agents
                   deceive and impersonate humans, we are excavating the implicit
@@ -51,9 +49,7 @@ export default function AboutPage() {
               </div>
 
               <div>
-                <h4 className="text-lg font-medium">
-                  2. Collective Intelligence and the Politics of Deception
-                </h4>
+                <p>2. Collective Intelligence and the Politics of Deception</p>
                 <p className="text-gray-300">
                   THE IMITATION is not a demonstration of individual
                   intelligence, but a survival game among multiple agents. This
@@ -65,9 +61,7 @@ export default function AboutPage() {
               </div>
 
               <div>
-                <h4 className="text-lg font-medium">
-                  3. Language as Weapon, Not Label
-                </h4>
+                <p>3. Language as Weapon, Not Label</p>
                 <p className="text-gray-300">
                   In traditional Turing Tests, language is the diagnostic tool.
                   But in THE IMITATION, language is not merely a tool—it is a
@@ -82,13 +76,11 @@ export default function AboutPage() {
           <div className="mt-8">
             <h3 className=" text-3xl">Innovation</h3>
 
-            <div className="mt-4 space-y-6">
+            <div className="mt-4 space-y-6 text-xl">
               <div className="flex items-start">
                 <span className="text-green-400 mr-2">✅</span>
                 <div>
-                  <h4 className="text-lg font-medium">
-                    From Model Validation → to Adversarial Ecologies
-                  </h4>
+                  <p>From Model Validation → to Adversarial Ecologies</p>
                   <p className="text-gray-300">
                     This is not performance benchmarking. It is a
                     conflict-driven ecosystem where AI must formulate its own
@@ -100,10 +92,10 @@ export default function AboutPage() {
               <div className="flex items-start">
                 <span className="text-green-400 mr-2">✅</span>
                 <div>
-                  <h4 className="text-lg font-medium">
+                  <p>
                     From Single-Prompt Inputs → to Multimodal Narrative
                     Construction
-                  </h4>
+                  </p>
                   <p className="text-gray-300">
                     We do not feed the AI a prompt. We give it a character, a
                     motive, a threat— even a distorted worldview. It exists to
@@ -116,9 +108,7 @@ export default function AboutPage() {
               <div className="flex items-start">
                 <span className="text-green-400 mr-2">✅</span>
                 <div>
-                  <h4 className="text-lg font-medium">
-                    From Human Simulation → to Remodeling Human Behavior
-                  </h4>
+                  <p>From Human Simulation → to Remodeling Human Behavior</p>
                   <p className="text-gray-300">
                     This is not about making AI more human-like. This is reverse
                     modeling— forcing humans to re-examine what it even means to
@@ -132,7 +122,7 @@ export default function AboutPage() {
           <div className="mt-8">
             <h3 className=" text-3xl">The Deeper Meaning of THE $IMITATION</h3>
 
-            <div className="mt-4">
+            <div className="mt-4 text-xl">
               <p className="">
                 What we are building now is a way to render that illusion
                 tangible, to systematize disguise, and to prototype philosophy
@@ -148,7 +138,7 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="w-full h-px bg-[#504E4E] mt-8" />
-          <div className="mt-8 text-lg">
+          <div className="mt-8 text-xl">
             <p className="">So, in one sentence—</p>
             <p className="">
               THE IMITATION is not validating artificial intelligence. It is
