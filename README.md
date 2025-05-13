@@ -96,7 +96,3 @@ yarn preview
 Built by **Turing-LAib** – pushing the boundaries of synthetic cognition, AI deception, and human perception.
 
 ---
-
-## 🧩 License
-
-MIT License. See `LICENSE` for more details.
