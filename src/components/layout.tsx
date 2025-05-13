@@ -43,7 +43,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
         <div className="mt-2 flex items-center text-center">
-          <img className="w-8 h-8 mr-1" src="/svg/mobileHome.svg" alt="" />
+          <img className="w-8 h-8 mr-1" src="/img/mobileHome.png" alt="" />
           <span className="text-[#D0D0D0]">Desktop access required</span>
         </div>
         <div className="mt-4 flex justify-center gap-x-5 w-full">
