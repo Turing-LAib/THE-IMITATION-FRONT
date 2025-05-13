@@ -5,7 +5,7 @@ import { getVoteInfo, submitVote, VoteInfo } from "@/services/vote";
 import { cn } from "@/utils/cn";
 import { numberToRoman } from "@/utils/format";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
-import { Button } from "@mui/material";
+import { Button, Dialog } from "@mui/material";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 type liveVoteProps = {
@@ -19,10 +19,10 @@ export default function LiveVote({
   isVoting,
 }: liveVoteProps) {
   const [voteId, setVoteId] = useState<number>();
-  const { primaryWallet } = useDynamicContext();
+  const { primaryWallet, setShowAuthFlow } = useDynamicContext();
   const [_, setVoteInfo] = useState<VoteInfo | null>(null);
+  const [conectWallet, setConectWallet] = useState<boolean>(false);
   const [voteLoading, setVoteLoading] = useState<boolean>(false);
-
   useEffect(() => {
     if (primaryWallet?.address) {
       getVoteInfo(primaryWallet?.address, gameData._id).then((res) => {
@@ -32,6 +32,7 @@ export default function LiveVote({
   }, [primaryWallet?.address]);
   const handleVote = async () => {
     if (!primaryWallet?.address) {
+      setConectWallet(true);
       return;
     }
     setVoteLoading(true);
@@ -56,6 +57,11 @@ export default function LiveVote({
       setVoteLoading(false);
     }
   };
+  useEffect(() => {
+    if (primaryWallet?.address) {
+      setConectWallet(false);
+    }
+  }, [primaryWallet?.address]);
   return (
     <div className="bg-linear-to-r from-[#0C0C0C] to-[#171717] rounded-[27px] p-7 mt-7">
       <div className="bg-[#1A1A1A] rounded-2xl p-3 mb-5 flex justify-between items-center font-['Fustat']">
@@ -167,6 +173,37 @@ export default function LiveVote({
       >
         {!voteLoading && "VOTE"}
       </Button>
+      <Dialog
+        open={conectWallet}
+        onClose={() => setConectWallet(false)}
+        keepMounted
+        aria-describedby="alert-dialog-slide-description"
+        PaperProps={{
+          style: {
+            backgroundColor: "transparent",
+            boxShadow: "none",
+            maxWidth: "400px",
+            width: "100%",
+          },
+        }}
+      >
+        <div className="p-8 bg-gradient-to-br from-[#1A1A1A] to-[#0C0C0C] rounded-2xl border border-[#2A2A2A] shadow-2xl">
+          <div className="flex flex-col items-center">
+            <h2 className="text-2xl font-bold mb-2 text-white">
+              Connect Wallet
+            </h2>
+            <p className="text-[#ACACAC] text-center mb-6">
+              Please connect your wallet to continue
+            </p>
+            <button
+              onClick={() => setShowAuthFlow(true)}
+              className="w-full py-3 px-6 bg-blue-500 cursor-pointer rounded-xl text-white font-bold transition-all duration-300 transform hover:opacity-70 shadow-lg"
+            >
+              Connect Wallet
+            </button>
+          </div>
+        </div>
+      </Dialog>
     </div>
   );
 }

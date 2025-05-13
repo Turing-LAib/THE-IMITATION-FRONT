@@ -112,7 +112,7 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="mt-8 pb-8 border-b-[1px] border-[#504E4E]">
-            <h3 className="font-bold text-3xl">$IMITATION</h3>
+            <h3 className="font-bold text-3xl">$IMIT</h3>
 
             <div className="mt-4 space-y-6 text-xl">
               <p>

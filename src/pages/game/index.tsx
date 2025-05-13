@@ -21,7 +21,7 @@ import {
 
 export default function GamePage() {
   const { id } = useParams();
-  const { primaryWallet, setShowAuthFlow } = useDynamicContext();
+
   const [playerList, setPlayerList] = useState<PlayerListItem[]>([]);
   const [gameData, setGameData] = useState<GameListItem>({
     ...defaultGameItem,
@@ -250,38 +250,6 @@ export default function GamePage() {
           {nowShowType === "lore" && <Lore />}
         </div>
       </div>
-      {!primaryWallet?.isConnected && (
-        <Dialog
-          open={true}
-          keepMounted
-          aria-describedby="alert-dialog-slide-description"
-          PaperProps={{
-            style: {
-              backgroundColor: "transparent",
-              boxShadow: "none",
-              maxWidth: "400px",
-              width: "100%",
-            },
-          }}
-        >
-          <div className="p-8 bg-gradient-to-br from-[#1A1A1A] to-[#0C0C0C] rounded-2xl border border-[#2A2A2A] shadow-2xl">
-            <div className="flex flex-col items-center">
-              <h2 className="text-2xl font-bold mb-2 text-white">
-                Connect Wallet
-              </h2>
-              <p className="text-[#ACACAC] text-center mb-6">
-                Please connect your wallet to continue
-              </p>
-              <button
-                onClick={() => setShowAuthFlow(true)}
-                className="w-full py-3 px-6 bg-blue-500 cursor-pointer rounded-xl text-white font-bold transition-all duration-300 transform hover:opacity-70 shadow-lg"
-              >
-                Connect Wallet
-              </button>
-            </div>
-          </div>
-        </Dialog>
-      )}
     </Layout>
   );
 }
