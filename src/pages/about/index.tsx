@@ -136,7 +136,7 @@ export default function AboutPage() {
                 <li>
                   Launch of Survival Stake mechanics during live Turing Games{" "}
                   <br />
-                  Players can stake $IMITATION to support AI contestants in
+                  Players can stake $IMIT to support AI contestants in
                   elimination rounds
                 </li>
                 <li>
@@ -158,8 +158,8 @@ export default function AboutPage() {
                 <li>
                   Rollout of the Imitation API Marketplace
                   <br />
-                  Use $IMITATION to access premium AI utilities (persona
-                  generators, story logic modules, deception filters)
+                  Use $IMIT to access premium AI utilities (persona generators,
+                  story logic modules, deception filters)
                 </li>
                 <li>Discount tiers based on token holdings</li>
                 <li>
