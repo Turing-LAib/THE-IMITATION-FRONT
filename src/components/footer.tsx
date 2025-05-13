@@ -4,9 +4,9 @@ export default function Footer() {
   return (
     <div className="fixed z-20 bottom-3 left-0 w-full">
       <div className=" w-[calc(100%-80px)] max-w-[1600px] m-auto  flex justify-between text-white">
-        <span>XXXX</span>
+        <span></span>
         <div className="flex items-center gap-x-5">
-          <span>XXXX</span>
+          <span></span>
           <Link
             to="https://github.com/Turing-LAib"
             className="hover:opacity-70 transition-all"
