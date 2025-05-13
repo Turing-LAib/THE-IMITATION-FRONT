@@ -8,8 +8,6 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Lore from "./components/lore";
 import { defaultGameItem, GameListItem, getGameById } from "@/services/getGame";
-import { Dialog } from "@mui/material";
-import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { getPlayerList, PlayerListItem } from "@/services/getPlayer";
 import socket from "@/utils/websocket";
 import {
